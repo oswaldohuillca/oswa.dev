@@ -1,0 +1,13 @@
+<span class="text-outline text-7xl">
+  <slot />
+</span>
+<style>
+  .text-outline {
+    /* outline */
+    -webkit-text-stroke: 1px hsl(var(--primary));
+    -webkit-text-fill-color: transparent;
+
+    /* fallback */
+    @apply text-primary;
+  }
+</style>

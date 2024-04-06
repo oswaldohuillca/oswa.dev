@@ -1,0 +1,23 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+// Supports weights 100-900
+import "@fontsource-variable/dm-sans";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="dark:bg-[#121212]">
+    <Header />
+    <slot />
+    <Footer />
+    <script>
+      import "preline/dist/preline.js";
+    </script>
+  </body>
+</html>

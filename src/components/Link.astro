@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../libs/utils";
+
+interface Props extends HTMLAttributes<"a"> {
+  variant?: "default";
+  size?: "default" | "icon";
+}
+
+const { class: className, variant, size, ...others } = Astro.props;
+
+// "",
+const buttonVariants = cva(
+  " inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
+  {
+    variants: {
+      variant: {
+        default: "",
+      },
+      size: {
+        default: "h-10 px-4 py-3",
+        icon: "p-2 text-xl",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+---
+
+<a {...others} class={cn(buttonVariants({ variant, size, className }))}>
+  <slot />
+</a>

@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Link from "../Link.astro";
+import Badge from "../Badge.astro";
+
+interface Props {
+  project: CollectionEntry<"project">;
+  index: number;
+}
+
+const { project, index = 1 } = Astro.props;
+
+const isEven = index % 2 === 0;
+---
+
+<article class="mb-20">
+  <figure
+    class={`flex ${!isEven ? "flex-row-reverse" : "flex-row"} items-center gap-16`}
+  >
+    <picture>
+      <img
+        src={project.data.heroImage}
+        alt=""
+        class="w-[450px] h-[450px] object-cover rounded-2xl ring-1 ring-black/10"
+      />
+    </picture>
+    <figcaption class="flex-1">
+      <h3 class="text-3xl">{project.data.title}</h3>
+      <p class="my-4">
+        {project.data.description}
+      </p>
+      {
+        project.data.tags && (
+          <div class="flex flex-wrap gap-1 my-4">
+            {project.data.tags.map((tag) => (
+              <Badge>{tag}</Badge>
+            ))}
+          </div>
+        )
+      }
+      <div class="flex items-center gap-1">
+        <!-- <Link href={project.slug}> Read More </Link> -->
+        <Link href={project.data.website} size="icon" target="_blank">
+          <span class="icon-[iconoir--internet]"></span>
+        </Link>
+        {
+          project.data.github && (
+            <Link href={project.data.github} size="icon" target="_blank">
+              <span class="icon-[ant-design--github-outlined]" />
+            </Link>
+          )
+        }
+      </div>
+    </figcaption>
+  </figure>
+</article>
