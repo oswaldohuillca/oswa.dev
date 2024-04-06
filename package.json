@@ -7,10 +7,12 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "release": "bunx release-it"
   },
   "dependencies": {},
   "devDependencies": {
+    "@release-it/conventional-changelog": "8.0.1",
     "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^2.2.2",
     "@astrojs/rss": "^4.0.5",
@@ -19,12 +21,13 @@
     "@fontsource-variable/dm-sans": "^5.0.5",
     "@iconify/json": "^2.2.196",
     "@iconify/tailwind": "^0.1.4",
+    "@types/bun": "latest",
     "astro": "^4.5.12",
     "class-variance-authority": "^0.7.0",
     "preline": "^2.0.3",
+    "release-it": "^17.1.1",
     "tailwind-merge": "^2.2.2",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.3",
-    "@types/bun": "latest"
+    "typescript": "^5.4.3"
   }
 }
