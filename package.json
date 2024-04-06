@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "release": "bunx release-it"
+    "release": "release-it"
   },
   "dependencies": {},
   "devDependencies": {
