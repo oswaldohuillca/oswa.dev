@@ -2,6 +2,11 @@
   "name": "oswa.dev",
   "type": "module",
   "version": "0.0.1",
+  "author": "Oswaldo <oswaldohuillca@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oswaldohuillca/oswa.dev.git"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
