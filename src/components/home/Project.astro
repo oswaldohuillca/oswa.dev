@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
 import Link from "../Link.astro";
 import Badge from "../Badge.astro";
 
@@ -15,13 +17,16 @@ const isEven = index % 2 === 0;
 
 <article class="mb-20">
   <figure
-    class={`flex ${!isEven ? "flex-row-reverse" : "flex-row"} items-center gap-16`}
+    class={`flex flex-col ${!isEven ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-16`}
   >
     <picture>
-      <img
-        src={project.data.heroImage}
-        alt=""
-        class="w-[450px] h-[450px] object-cover rounded-2xl ring-1 ring-black/10"
+      <Image
+        src={project.data.heroImage || ""}
+        width={450}
+        height={450}
+        alt={project.data.title}
+        format="webp"
+        class="w-full md:w-[450px] md:h-[450px] object-cover rounded-2xl ring-1 ring-black/10"
       />
     </picture>
     <figcaption class="flex-1">
@@ -40,12 +45,22 @@ const isEven = index % 2 === 0;
       }
       <div class="flex items-center gap-1">
         <!-- <Link href={project.slug}> Read More </Link> -->
-        <Link href={project.data.website} size="icon" target="_blank">
+        <Link
+          href={project.data.website}
+          size="icon"
+          target="_blank"
+          aria-label="Visit to Website"
+        >
           <span class="icon-[iconoir--internet]"></span>
         </Link>
         {
           project.data.github && (
-            <Link href={project.data.github} size="icon" target="_blank">
+            <Link
+              href={project.data.github}
+              size="icon"
+              target="_blank"
+              aria-label="See more in github"
+            >
               <span class="icon-[ant-design--github-outlined]" />
             </Link>
           )
