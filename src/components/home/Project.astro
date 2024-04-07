@@ -15,13 +15,13 @@ const isEven = index % 2 === 0;
 
 <article class="mb-20">
   <figure
-    class={`flex ${!isEven ? "flex-row-reverse" : "flex-row"} items-center gap-16`}
+    class={`flex flex-col ${!isEven ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-16`}
   >
     <picture>
       <img
         src={project.data.heroImage}
         alt=""
-        class="w-[450px] h-[450px] object-cover rounded-2xl ring-1 ring-black/10"
+        class="w-full md:w-[450px] md:h-[450px] object-cover rounded-2xl ring-1 ring-black/10"
       />
     </picture>
     <figcaption class="flex-1">

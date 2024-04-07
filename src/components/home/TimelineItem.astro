@@ -31,8 +31,10 @@ const { date, title, company } = Astro.props;
   <!-- Right Content -->
   <div class="grow pt-0.5 pb-8">
     <h3 class="text-xl flex items-center gap-x-1.5 text-cyan-500 font-bold">
-      <span class="icon-[solar--document-text-bold-duotone]"></span>
-      {title}
+      <i class="icon-[solar--document-text-bold-duotone]"></i>
+      <span class="flex-1">
+        {title}
+      </span>
     </h3>
     <h4 class="text-gray-400/80 mt-2 font-semibold">{company}</h4>
     <div class="mt-2">
