@@ -4,6 +4,7 @@ import Project from "../components/home/Project.astro";
 import TextOutline from "../components/home/TextOutline.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import TimelineItem from "../components/home/TimelineItem.astro";
+import { Image } from "astro:assets";
 
 const projects = (await getCollection("project")).sort(
 	(a, b) => a.data.createAt.valueOf() - b.data.createAt.valueOf(),
@@ -34,7 +35,6 @@ const projects = (await getCollection("project")).sort(
 					proyectos como desarrollador Web.
 				</p>
 			</header>
-			<!-- Timeline -->
 			<div class="mb-24 lg:w-[80%]">
 				<TimelineItem
 					date="Actualmente"
@@ -72,12 +72,11 @@ const projects = (await getCollection("project")).sort(
 					</p>
 				</TimelineItem>
 			</div>
-			<!-- End Timeline -->
 		</section>
 
-		<section class="container">
+		<section class="container py-20 md:py-28">
 			<header
-				class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-24"
+				class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
 			>
 				<h2 class="text-4xl">Proyectos</h2>
 				<p>
@@ -90,6 +89,66 @@ const projects = (await getCollection("project")).sort(
 					<Project project={project} index={index + 1} />
 				))
 			}
+		</section>
+
+		<section class="container py-20 md:py-28">
+			<header
+				class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
+			>
+				<h2 class="text-4xl md:text-nowrap">Te cuento sobre mí</h2>
+				<p>Un breve resumen sobre mi vida profesional.</p>
+			</header>
+
+			<div class="flex flex-col md:flex-row items-center gap-10">
+				<div class="[&_p]:mb-4 [&_strong]:text-cyan-500 flex-1">
+					<p>
+						Mi nombre completo es <strong
+							>Oswaldo Roberto Huillca Huamani</strong
+						>
+						pero suelen llamarme <strong>Oswa</strong> para que no sea muy largo.
+						No hace mucho estoy en el mundo de la programación, profesionalmente
+						empece hace 4 años hasta la fecha.
+					</p>
+
+					<p>
+						Como desarrollador Web he participado en diferentes retos, algunos
+						sencillos, complejos y otros con psibilidad de mejora. Es asi que en
+						mi ultima empresa he desarrollado 2 herramientas que nos ayudan a
+						mejorar el desarrollo asi reduciendo el tiempo,
+						<a
+							href="https://github.com/oswaldohuillca/unocss-preset-calc"
+							target="_blank"
+							class="underline"
+						>
+							UnoCSS preset calc
+						</a> el cual nos permite crear interfaces identicas al diseño UI de
+						<i>Figma</i> u otras herramientas de diseño UI.
+						<a
+							href="https://github.com/oswaldohuillca/wp-dev-kit-started"
+							target="_blank"
+							class="underline"
+						>
+							WP Started Dev Kit
+						</a> Nos ayuda a crear plantillas <i>Wordpress</i> rápidamente con alto
+						grado de customización utilizando herramientas como AFC.
+					</p>
+
+					<p>
+						Como reto personal profesional, espero mejorar constantemente y
+						aprender nuevas tecnologias para asi a posterior crear herramientas
+						que ayuden a los usuarios tener una vida menos compleja.
+					</p>
+				</div>
+				<figure class="grow-0 md:max-w-[30%]">
+					<Image
+						src="/images/oswaldo-huillca.webp"
+						width={600}
+						height={600}
+						alt="Oswaldo Roberto Huillca Huamani"
+						class="min-h-10 rounded-lg"
+					/>
+				</figure>
+			</div>
 		</section>
 
 		<!-- <section class="container my-32">

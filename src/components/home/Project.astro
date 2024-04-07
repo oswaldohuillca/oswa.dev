@@ -15,7 +15,7 @@ const { project, index = 1 } = Astro.props;
 const isEven = index % 2 === 0;
 ---
 
-<article class="mb-20">
+<article class="mb-6 md:mb-20">
   <figure
     class={`flex flex-col ${!isEven ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-16`}
   >

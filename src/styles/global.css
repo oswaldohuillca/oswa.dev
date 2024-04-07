@@ -67,14 +67,7 @@ body {
 }
 
 .custom-blur {
-  /* palette/gradiant/intro/light */
-  /* background: conic-gradient(from 180deg at 50% 50%, #00A3FF 0deg, #FF00C7 360deg);
-  opacity: 0.5;
-  filter: blur(125px); */
-  /* blur */
-
   /* palette/gradiant/content/dark */
   background: conic-gradient(from 180deg at 50% 50%, #FFA800 0deg, #FF00B8 360deg);
   filter: blur(200px);
-
 }
