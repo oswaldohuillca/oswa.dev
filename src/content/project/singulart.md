@@ -1,6 +1,6 @@
 ---
 title: 'Singulart Apartments'
-description: 'Singulart Apartments is a Real state agency that offers apartments in the Miraflores distric in Lima - Peru'
+description: 'Singulart Apartments es una agencia inmobiliaria que vende y ofrece apartamentos en el distrito de Miraflores en Lima - Perú'
 createAt: 'April 04 2023'
 heroImage: '/images/project/singulart-apartments.png'
 website: 'https://singulart.pages.dev'
