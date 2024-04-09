@@ -17,7 +17,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@release-it/conventional-changelog": "8.0.1",
     "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^2.2.2",
     "@astrojs/rss": "^4.0.5",
@@ -26,6 +25,7 @@
     "@fontsource-variable/dm-sans": "^5.0.5",
     "@iconify/json": "^2.2.196",
     "@iconify/tailwind": "^0.1.4",
+    "@release-it/conventional-changelog": "8.0.1",
     "@types/bun": "latest",
     "astro": "^4.5.12",
     "class-variance-authority": "^0.7.0",

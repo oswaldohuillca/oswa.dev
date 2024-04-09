@@ -1,0 +1,53 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import MainLayout from "../../layouts/MainLayout.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import "../../styles/global.mdx.css";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("project");
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: project,
+  }));
+}
+type Props = CollectionEntry<"project">;
+
+const project = Astro.props;
+const { Content } = await project.render();
+---
+
+<MainLayout>
+  <section class="container pt-24">
+    <div class="flex flex-col gap-4 md:flex-row">
+      <aside class="min-w-[380px]">
+        <div class="h-full">
+          <div class="sticky top-24">
+            <h1
+              class="text-2xl md:text-4xl mb-2 text-cyan-500 font-bold text-balance"
+            >
+              {project.data.title}
+            </h1>
+            <FormattedDate date={project.data.createAt} />
+          </div>
+        </div>
+      </aside>
+      <div class="mdx">
+        {
+          project.data.heroImage && (
+            <Image
+              src={project.data.heroImage}
+              alt={project.data.title}
+              format="webp"
+              width={650}
+              height={650}
+              class="max-h-[300px] object-cover object-top"
+            />
+          )
+        }
+        <Content />
+      </div>
+    </div>
+  </section>
+</MainLayout>
