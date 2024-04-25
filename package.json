@@ -20,6 +20,7 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^2.2.2",
     "@astrojs/rss": "^4.0.5",
+    "astro-robots-txt": "1.0.0",
     "@astrojs/sitemap": "^3.1.2",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/dm-sans": "^5.0.5",
