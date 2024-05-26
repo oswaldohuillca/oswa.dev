@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.0.9](https://github.com/oswaldohuillca/oswa.dev/compare/0.0.8...0.0.9) (2024-05-26)
+
 ## [0.0.8](https://github.com/oswaldohuillca/oswa.dev/compare/0.0.7...0.0.8) (2024-04-25)
 
 
