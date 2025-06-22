@@ -3,9 +3,10 @@ interface Props {
   date: string | Date;
   title: string;
   company: string;
+  companyLink?: string;
 }
 
-const { date, title, company } = Astro.props;
+const { date, title, company, companyLink } = Astro.props;
 ---
 
 <!-- Heading -->
@@ -36,7 +37,17 @@ const { date, title, company } = Astro.props;
         {title}
       </span>
     </h3>
-    <h4 class="text-gray-400/80 mt-2 font-semibold">{company}</h4>
+    <h4 class="text-gray-400/80 mt-2 font-semibold">
+      {
+        companyLink ? (
+          <a href={companyLink} target="_blank" rel="noopener noreferrer">
+            {company}
+          </a>
+        ) : (
+          <>{company}</>
+        )
+      }
+    </h4>
     <div class="mt-2">
       <slot />
     </div>

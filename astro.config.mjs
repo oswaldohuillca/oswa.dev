@@ -1,25 +1,27 @@
-import { defineConfig } from "astro/config"
-import mdx from "@astrojs/mdx"
-import sitemap from "@astrojs/sitemap"
-import tailwind from "@astrojs/tailwind"
-import robotsTxt from 'astro-robots-txt'
-
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+// import tailwind from "@astrojs/tailwind"
+import robotsTxt from "astro-robots-txt";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://oswa.dev",
   integrations: [
     mdx({
-      syntaxHighlight: 'shiki',
+      syntaxHighlight: "shiki",
       shikiConfig: {
-        theme: 'dracula'
+        theme: "dracula",
       },
-
     }),
     sitemap(),
-    tailwind({
-      applyBaseStyles: false
-    }),
-    robotsTxt()
-  ]
-})
+    // tailwind({
+    //   applyBaseStyles: false
+    // }),
+    robotsTxt(),
+  ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});

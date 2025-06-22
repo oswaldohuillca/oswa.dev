@@ -1,228 +1,164 @@
 ---
 import { getCollection } from "astro:content";
 import Project from "../components/home/Project.astro";
-import TextOutline from "../components/home/TextOutline.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import TimelineItem from "../components/home/TimelineItem.astro";
 import { Image } from "astro:assets";
-import Button from "../components/Button.astro";
 import Link from "../components/Link.astro";
+import Blog from "../components/home/Blog.astro";
 
 const projects = (await getCollection("project")).sort(
-	(a, b) => a.data.createAt.valueOf() - b.data.createAt.valueOf(),
+  (a, b) => a.data.createAt.valueOf() - b.data.createAt.valueOf()
 );
 ---
 
 <MainLayout>
-	<main>
-		<section class="min-h-[655px] grid place-items-center container relative">
-			<div>
-				<h1
-					class="text-5xl max-w-[987px] text-balance leading-snug relative z-10"
-				>
-					Hola, soy <strong class="text-cyan-500">Oswaldo</strong>,
-					Desarrollador Web Full Stack
-				</h1>
-				<Link href="/CV-Oswaldo.pdf" download="CV-Oswa.pdf">
-					Descargar CV
-					<span class="icon-[iconamoon--cloud-download]"></span>
-				</Link>
-			</div>
-			<span
-				class="intro-dark w-[50%] h-[50%] absolute top-0 left-0 bottom-0 right-0 m-auto z-0"
-			></span>
-		</section>
+  <main>
+    <section class="min-h-[655px] grid place-items-center container relative">
+      <div>
+        <h1
+          class="text-5xl max-w-[987px] text-balance leading-snug relative z-10"
+        >
+          Hola, soy <strong class="text-cyan-500">Oswaldo</strong>,
+          Desarrollador Web Full Stack
+        </h1>
+        <Link href="/CV-Oswaldo.pdf" download="CV-Oswa.pdf">
+          Descargar CV
+          <span class="icon-[iconamoon--cloud-download]"></span>
+        </Link>
+      </div>
+      <span
+        class="intro-dark w-[50%] h-[50%] absolute top-0 left-0 bottom-0 right-0 m-auto z-0"
+      ></span>
+    </section>
 
-		<section class="container">
-			<header
-				class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-24"
-			>
-				<h2 class="text-4xl text-nowrap">Mi Experiencia</h2>
-				<p>
-					Últimas empresas donde me he desempeñado y aportado en diferentes
-					proyectos como desarrollador Web.
-				</p>
-			</header>
-			<div class="mb-24 lg:w-[80%]">
-				<TimelineItem
-					date="Actualmente"
-					title="Desarrollador Full Stack (PHP, Mysql, JavaScript)"
-					company="apros.global"
-				>
-					<p>
-						Implementé una plantilla para mejorar la experiencia de desarrollo y
-						mejorar el rendimiento de los sitios Web, evitando el uso excesivo
-						de plugins de Wordpress que invaden con gigantescos archivos que lo
-						componen.
-					</p>
-				</TimelineItem>
-				<TimelineItem
-					date="28 enero, 2022"
-					title="Desarrollador Full Stack (NextJs, MongoDB)"
-					company="Clinica San Carlos"
-				>
-					<p>
-						Participé en el desarrollo de un software interno de la empresa para
-						la gestión de historias y citas medicas.
-					</p>
-				</TimelineItem>
+    <section class="container">
+      <header
+        class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-24"
+      >
+        <h2 class="text-4xl text-nowrap">Mi Experiencia</h2>
+        <p>
+          Últimas empresas donde me he desempeñado y aportado en diferentes
+          proyectos como desarrollador Web.
+        </p>
+      </header>
+      <div class="mb-24 lg:w-[80%]">
+        <TimelineItem
+          date="Actualmente"
+          title="Desarrollador Full Stack (PHP, Mysql, JavaScript, NextJs, PostgreSQL, Laravel)"
+          company="apros.global"
+          companyLink="https://apros.global"
+        >
+          <p>
+            Implementé una plantilla para mejorar la experiencia de desarrollo y
+            mejorar el rendimiento de los sitios Web, evitando el uso excesivo
+            de plugins de Wordpress que invaden con gigantescos archivos que lo
+            componen.
+          </p>
+        </TimelineItem>
+        <TimelineItem
+          date="28 enero, 2022"
+          title="Desarrollador Full Stack (NextJs, MongoDB)"
+          company="Clinica San Carlos"
+        >
+          <p>
+            Participé en el desarrollo de un software interno de la empresa para
+            la gestión de historias y citas medicas.
+          </p>
+        </TimelineItem>
 
-				<TimelineItem
-					date="Febrero, 2021"
-					title="Desarrollador Full Stack (LAMP)"
-					company="EEGSAC"
-				>
-					<p>
-						Tuve la oportunidad de mejorar una herramienta interna de la empresa
-						el cual se usa para generar certificados, implemtentos diferentes
-						funcionalidades como busqueda, filtrado y asignación mediante
-						códigos QR.
-					</p>
-				</TimelineItem>
-			</div>
-		</section>
+        <TimelineItem
+          date="Febrero, 2021"
+          title="Desarrollador Full Stack (LAMP)"
+          company="EEGSAC"
+        >
+          <p>
+            Tuve la oportunidad de mejorar una herramienta interna de la empresa
+            el cual se usa para generar certificados, implemtentos diferentes
+            funcionalidades como busqueda, filtrado y asignación mediante
+            códigos QR.
+          </p>
+        </TimelineItem>
+      </div>
+    </section>
 
-		<section class="container py-20 md:py-28">
-			<header
-				class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
-			>
-				<h2 class="text-4xl">Proyectos</h2>
-				<p>
-					Algunos de los proyectos en los que he liderado, participado y
-					contruido independiente.
-				</p>
-			</header>
-			{
-				projects.map((project, index) => (
-					<Project project={project} index={index + 1} />
-				))
-			}
-		</section>
+    <section class="container py-20 md:py-28">
+      <header
+        class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
+      >
+        <h2 class="text-4xl">Proyectos</h2>
+        <p>
+          Algunos de los proyectos en los que he liderado, participado y
+          contruido independiente.
+        </p>
+      </header>
+      {
+        projects.map((project, index) => (
+          <Project project={project} index={index + 1} />
+        ))
+      }
+    </section>
 
-		<section class="container py-20 md:py-28">
-			<header
-				class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
-			>
-				<h2 class="text-4xl md:text-nowrap">Te cuento sobre mí</h2>
-				<p>Un breve resumen sobre mi vida profesional.</p>
-			</header>
+    <section class="container py-20 md:py-28">
+      <header
+        class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
+      >
+        <h2 class="text-4xl md:text-nowrap">Te cuento sobre mí</h2>
+        <p>Un breve resumen sobre mi vida profesional.</p>
+      </header>
 
-			<div class="flex flex-col md:flex-row items-center gap-10">
-				<div class="[&_p]:mb-4 [&_strong]:text-cyan-500 flex-1">
-					<p>
-						Mi nombre completo es <strong
-							>Oswaldo Roberto Huillca Huamani</strong
-						>
-						pero suelen llamarme <strong>Oswa</strong> para que no sea muy largo.
-						No hace mucho estoy en el mundo de la programación, profesionalmente
-						empece hace 4 años hasta la fecha.
-					</p>
+      <div class="flex flex-col md:flex-row items-center gap-10">
+        <div class="[&_p]:mb-4 [&_strong]:text-cyan-500 flex-1">
+          <p>
+            Mi nombre completo es <strong
+              >Oswaldo Roberto Huillca Huamani</strong
+            >
+            pero suelen llamarme <strong>Oswa</strong> para que no sea muy largo.
+            No hace mucho estoy en el mundo de la programación, profesionalmente
+            empece hace 4 años hasta la fecha.
+          </p>
 
-					<p>
-						Como desarrollador Web he participado en diferentes retos, algunos
-						sencillos, complejos y otros con psibilidad de mejora. Es asi que en
-						mi ultima empresa he desarrollado 2 herramientas que nos ayudan a
-						mejorar el desarrollo asi reduciendo el tiempo,
-						<a
-							href="https://github.com/oswaldohuillca/unocss-preset-calc"
-							target="_blank"
-							class="underline"
-						>
-							UnoCSS preset calc
-						</a> el cual nos permite crear interfaces identicas al diseño UI de
-						<i>Figma</i> u otras herramientas de diseño UI.
-						<a
-							href="https://github.com/oswaldohuillca/wp-dev-kit-started"
-							target="_blank"
-							class="underline"
-						>
-							WP Started Dev Kit
-						</a> Nos ayuda a crear plantillas <i>Wordpress</i> rápidamente con alto
-						grado de customización utilizando herramientas como AFC.
-					</p>
+          <p>
+            Como desarrollador Web he participado en diferentes retos, algunos
+            sencillos, complejos y otros con psibilidad de mejora. Es asi que en
+            mi ultima empresa he desarrollado 2 herramientas que nos ayudan a
+            mejorar el desarrollo asi reduciendo el tiempo,
+            <a
+              href="https://github.com/oswaldohuillca/unocss-preset-calc"
+              target="_blank"
+              class="underline"
+            >
+              UnoCSS preset calc
+            </a> el cual nos permite crear interfaces identicas al diseño UI de
+            <i>Figma</i> u otras herramientas de diseño UI.
+            <a
+              href="https://github.com/oswaldohuillca/wp-dev-kit-started"
+              target="_blank"
+              class="underline"
+            >
+              WP Started Dev Kit
+            </a> Nos ayuda a crear plantillas <i>Wordpress</i> rápidamente con alto
+            grado de customización utilizando herramientas como AFC.
+          </p>
 
-					<p>
-						Como reto personal profesional, espero mejorar constantemente y
-						aprender nuevas tecnologias para asi a posterior crear herramientas
-						que ayuden a los usuarios tener una vida menos compleja.
-					</p>
-				</div>
-				<figure class="grow-0 md:max-w-[30%]">
-					<Image
-						src="/images/oswaldo-huillca.webp"
-						width={600}
-						height={600}
-						alt="Oswaldo Roberto Huillca Huamani"
-						class="min-h-10 rounded-lg"
-					/>
-				</figure>
-			</div>
-		</section>
+          <p>
+            Como reto personal profesional, espero mejorar constantemente y
+            aprender nuevas tecnologias para asi a posterior crear herramientas
+            que ayuden a los usuarios tener una vida menos compleja.
+          </p>
+        </div>
+        <figure class="grow-0 md:max-w-[30%]">
+          <Image
+            src="/images/oswaldo-huillca.webp"
+            width={600}
+            height={600}
+            alt="Oswaldo Roberto Huillca Huamani"
+            class="min-h-10 rounded-lg"
+          />
+        </figure>
+      </div>
+    </section>
 
-		<!-- <section class="container my-32">
-			<header class="flex justify-between gap-16 mb-24">
-				<h2 class="text-4xl">Blog</h2>
-				<p>Some articles about my experience and what I habe learned so far.</p>
-			</header>
-			<div class="grid grid-cols-2 relative">
-				<article
-					class="border-b border-r border-b-primary border-r-primary border-dashed p-16 relative z-10"
-				>
-					<TextOutline>01</TextOutline>
-					<h3 class="text-3xl">Art & Design</h3>
-					<div>
-						<datetime>February 11, 2021</datetime>
-						<a
-							href="#"
-							class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-							>Read article</a
-						>
-					</div>
-				</article>
-				<article
-					class="border-b border-b-primary border-dashed p-16 relative z-10"
-				>
-					<TextOutline>02</TextOutline>
-					<h3 class="text-3xl">Art & Design</h3>
-					<div>
-						<datetime>February 11, 2021</datetime>
-						<a
-							href="#"
-							class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-							>Read article</a
-						>
-					</div>
-				</article>
-				<article
-					class="border-r border-r-primary border-dashed p-16 relative z-10"
-				>
-					<TextOutline>02</TextOutline>
-					<h3 class="text-3xl">Art & Design</h3>
-					<div>
-						<datetime>February 11, 2021</datetime>
-						<a
-							href="#"
-							class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-							>Read article</a
-						>
-					</div>
-				</article>
-				<article class="p-16 relative z-10">
-					<TextOutline>02</TextOutline>
-					<h3 class="text-3xl">Art & Design</h3>
-					<div>
-						<datetime>February 11, 2021</datetime>
-						<a
-							href="#"
-							class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-							>Read article</a
-						>
-					</div>
-				</article>
-				<span
-					class="custom-blur absolute top-0 left-0 bottom-0 right-0 m-auto w-[50%] h-[50%] z-0"
-				></span>
-			</div>
-		</section> -->
-	</main>
+    <Blog />
+  </main>
 </MainLayout>

@@ -1,0 +1,133 @@
+---
+import { cn } from "../../libs/utils";
+import TextOutline from "./TextOutline.astro";
+import { fDate } from "@libs/date";
+
+interface Post {
+  title: string;
+  description: string;
+  url: string;
+  publishedAt: string;
+  coverImage: string;
+  markdown: string;
+}
+
+interface PostsResponse {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  published_timestamp: string;
+  cover_image: string;
+  body_markdown: string;
+}
+
+const devToPost = await fetch("https://dev.to/api/articles/me/published", {
+  headers: {
+    "api-key": import.meta.env.DEVTO_API_KEY,
+  },
+})
+  .then((res) => res.json())
+  .then((data) => data);
+
+const posts: Post[] = devToPost?.map((post: PostsResponse) => ({
+  title: post.title,
+  description: post.description,
+  url: post.url,
+  publishedAt: post.published_timestamp,
+  coverImage: post.cover_image,
+  markdown: post.body_markdown,
+}));
+---
+
+<section class="container my-32">
+  <header class="flex justify-between gap-16 mb-24">
+    <h2 class="text-4xl">Blog</h2>
+    <p>Puede que encuentres algún artículo interesante.</p>
+  </header>
+  <div class="grid grid-cols-2 relative">
+    {
+      posts.map((post, index) => {
+        const isEven = index % 2 === 0;
+
+        return (
+          <article
+            class={cn("border-dashed p-16 relative z-10", {
+              "border-b border-r border-b-primary border-r-primary": isEven,
+              "border-b border-b-primary ": !isEven,
+            })}
+          >
+            <TextOutline>0{index + 1}</TextOutline>
+            <h3 class="text-3xl">{post.title}</h3>
+            <div>
+              <datetime>{fDate(post.publishedAt)}</datetime>
+              <a
+                href={post.url}
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              >
+                Leer más
+              </a>
+            </div>
+          </article>
+        );
+      })
+    }
+    <!-- <article
+				class="border-b border-r border-b-primary border-r-primary border-dashed p-16 relative z-10"
+			>
+				<TextOutline>01</TextOutline>
+				<h3 class="text-3xl">Art & Design</h3>
+				<div>
+					<datetime>February 11, 2021</datetime>
+					<a
+						href="#"
+						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+						>Read article</a
+					>
+				</div>
+			</article>
+			<article
+				class="border-b border-b-primary border-dashed p-16 relative z-10"
+			>
+				<TextOutline>02</TextOutline>
+				<h3 class="text-3xl">Art & Design</h3>
+				<div>
+					<datetime>February 11, 2021</datetime>
+					<a
+						href="#"
+						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+						>Read article</a
+					>
+				</div>
+			</article>
+			<article
+				class="border-r border-r-primary border-dashed p-16 relative z-10"
+			>
+				<TextOutline>02</TextOutline>
+				<h3 class="text-3xl">Art & Design</h3>
+				<div>
+					<datetime>February 11, 2021</datetime>
+					<a
+						href="#"
+						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+						>Read article</a
+					>
+				</div>
+			</article>
+			<article class="p-16 relative z-10">
+				<TextOutline>02</TextOutline>
+				<h3 class="text-3xl">Art & Design</h3>
+				<div>
+					<datetime>February 11, 2021</datetime>
+					<a
+						href="#"
+						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+						>Read article</a
+					>
+				</div>
+			</article> -->
+    <span
+      class="custom-blur absolute top-0 left-0 bottom-0 right-0 m-auto w-[50%] h-[50%] z-0"
+    ></span>
+  </div>
+</section>

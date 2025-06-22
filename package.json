@@ -15,25 +15,28 @@
     "astro": "astro",
     "release": "release-it"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@tailwindcss/vite": "4.1.5",
+    "date-fns": "4.1.0"
+  },
   "devDependencies": {
-    "@astrojs/check": "^0.5.10",
-    "@astrojs/mdx": "^2.2.2",
-    "@astrojs/rss": "^4.0.5",
-    "astro-robots-txt": "1.0.0",
-    "@astrojs/sitemap": "^3.1.2",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "4.3.0",
+    "@astrojs/rss": "4.0.12",
+    "@astrojs/sitemap": "3.4.1",
     "@fontsource-variable/dm-sans": "^5.0.5",
-    "@iconify/json": "^2.2.213",
-    "@iconify/tailwind": "^1.1.1",
-    "@release-it/conventional-changelog": "8.0.1",
+    "@iconify/json": "^2.2.336",
+    "@iconify/tailwind4": "1.0.6",
+    "@release-it/conventional-changelog": "10.0.1",
     "@types/bun": "latest",
-    "astro": "^4.9.1",
-    "class-variance-authority": "^0.7.0",
-    "preline": "^2.0.3",
+    "astro": "5.10.0",
+    "astro-robots-txt": "1.0.0",
+    "class-variance-authority": "^0.7.1",
+    "preline": "3.0.1",
     "release-it": "^17.1.1",
-    "tailwind-merge": "^2.2.2",
-    "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.3"
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "4.1.5",
+    "tw-animate-css": "1.2.9",
+    "typescript": "^5.8.3"
   }
 }
