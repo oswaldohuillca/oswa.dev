@@ -1,13 +1,32 @@
-<span class="text-outline text-7xl text-primary">
+<span class="text-outline text-7xl">
   <slot />
 </span>
 <style>
   .text-outline {
-    /* outline */
-    -webkit-text-stroke: 1px hsl(var(--primary));
+    /* Texto con borde y fondo transparente */
+    -webkit-text-stroke: 1px var(--primary);
     -webkit-text-fill-color: transparent;
+    color: transparent;
 
-    /* fallback */
-    /* @apply text-primary; */
+    /* Asegurar que no haya fondo */
+    background: transparent;
+    background-color: transparent;
+
+    /* Mejorar la renderización */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Fallback para navegadores que no soportan webkit-text-stroke */
+  @supports not (-webkit-text-stroke: 1px var(--primary)) {
+    .text-outline {
+      color: transparent;
+      background: transparent;
+      text-shadow:
+        -1px -1px 0 var(--primary),
+        1px -1px 0 var(--primary),
+        -1px 1px 0 var(--primary),
+        1px 1px 0 var(--primary);
+    }
   }
 </style>

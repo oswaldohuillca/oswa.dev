@@ -45,15 +45,15 @@ const posts: Post[] = devToPost?.map((post: PostsResponse) => ({
     <h2 class="text-4xl">Blog</h2>
     <p>Puede que encuentres algún artículo interesante.</p>
   </header>
-  <div class="grid grid-cols-2 relative">
+  <div class="grid md:grid-cols-2 relative">
     {
       posts.map((post, index) => {
         const isEven = index % 2 === 0;
 
         return (
           <article
-            class={cn("border-dashed p-16 relative z-10", {
-              "border-b border-r border-b-primary border-r-primary": isEven,
+            class={cn("border-dashed p-4 md:p-16 relative z-10", {
+              "border-b border-r border-b-primary md:border-r-primary": isEven,
               "border-b border-b-primary ": !isEven,
             })}
           >
