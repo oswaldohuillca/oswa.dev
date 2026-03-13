@@ -17,7 +17,12 @@ const project = Astro.props;
 const { Content } = await project.render();
 ---
 
-<MainLayout>
+<MainLayout
+  title={`${project.data.title} | Oswaldo Huillca`}
+  description={project.data.description}
+  image={project.data.heroImage}
+  imageAlt={project.data.title}
+>
   <section class="container pt-24">
     <div class="flex flex-col gap-4 md:flex-row">
       <aside class="min-w-[380px]">

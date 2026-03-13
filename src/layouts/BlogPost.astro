@@ -4,15 +4,45 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import { SITE_URL } from "../consts";
 
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, createAt, updatedDate, heroImage } = Astro.props;
+const pageTitle = `${title} | Oswaldo Huillca`;
+const publishedTime = createAt.toISOString();
+const modifiedTime = updatedDate?.toISOString();
+const imageUrl = heroImage ? new URL(heroImage, SITE_URL).href : undefined;
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	headline: title,
+	description,
+	datePublished: publishedTime,
+	...(modifiedTime && { dateModified: modifiedTime }),
+	...(imageUrl && { image: imageUrl }),
+	author: {
+		"@type": "Person",
+		name: "Oswaldo Huillca Huamani",
+	},
+	url: new URL(Astro.url.pathname, SITE_URL).href,
+};
 ---
 
-<html lang="en">
+<html lang="es">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead
+			title={pageTitle}
+			description={description}
+			image={heroImage}
+			imageAlt={title}
+			type="article"
+			publishedTime={publishedTime}
+			modifiedTime={modifiedTime}
+		>
+			<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+		</BaseHead>
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -61,7 +91,7 @@ const { title, description, createAt, updatedDate, heroImage } = Astro.props;
 				<div class="hero-image">
 					{
 						heroImage && (
-							<img width={1020} height={510} src={heroImage} alt="" />
+							<img width={1020} height={510} src={heroImage} alt={title} />
 						)
 					}
 				</div>
@@ -72,7 +102,7 @@ const { title, description, createAt, updatedDate, heroImage } = Astro.props;
 							{
 								updatedDate && (
 									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
+										Última actualización: <FormattedDate date={updatedDate} />
 									</div>
 								)
 							}

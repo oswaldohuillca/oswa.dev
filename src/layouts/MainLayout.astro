@@ -2,15 +2,61 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "../consts";
 // Supports weights 100-900
 import "@fontsource-variable/dm-sans";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+const { title: pageTitle, description: pageDesc, image: pageImage, imageAlt: pageImageAlt } = Astro.props;
+const title = pageTitle ?? SITE_TITLE;
+const description = pageDesc ?? SITE_DESCRIPTION;
+const isHomepage = Astro.url.pathname === "/" || Astro.url.pathname === "";
+const jsonLd = isHomepage
+  ? {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": `${SITE_URL}/#person`,
+          name: "Oswaldo Roberto Huillca Huamani",
+          alternateName: "Oswa",
+          url: SITE_URL,
+          jobTitle: "Desarrollador Web Full Stack",
+          description: SITE_DESCRIPTION,
+          image: `${SITE_URL}/images/oswaldo-huillca.webp`,
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${SITE_URL}/#website`,
+          url: SITE_URL,
+          name: "Oswaldo Huillca - Portfolio",
+          description: SITE_DESCRIPTION,
+          publisher: { "@id": `${SITE_URL}/#person` },
+        },
+      ],
+    }
+  : null;
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={pageImage ?? "/images/oswaldo-huillca.webp"}
+      imageAlt={pageImageAlt ?? "Oswaldo Huillca - Desarrollador Web Full Stack"}
+    >
+      {jsonLd && (
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+      )}
+    </BaseHead>
   </head>
   <body class="dark:bg-[#121212]">
     <Header />
