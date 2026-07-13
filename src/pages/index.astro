@@ -14,13 +14,15 @@ const projects = (await getCollection("project")).sort(
 
 <MainLayout>
   <main>
-    <section class="min-h-[655px] grid place-items-center container relative">
-      <div>
-        <h1
-          class="text-5xl max-w-[987px] text-balance leading-snug relative z-10"
-        >
-          Hola, soy <strong class="text-cyan-500">Oswaldo</strong>,
+    <section class="min-h-[655px] flex items-center container relative">
+      <div class="relative z-10 max-w-[800px]">
+        <p class="text-brand-strong dark:text-brand font-semibold mb-6">
           Desarrollador Web Full Stack
+        </p>
+        <h1 class="text-5xl md:text-6xl text-balance leading-[1.05] mb-8">
+          Hola, soy <strong class="text-brand-strong dark:text-brand"
+            >Oswaldo</strong
+          >. Construyo la web que usas todos los días.
         </h1>
         <Link href="/CV-Oswaldo.pdf" download="CV-Oswa.pdf">
           Descargar CV
@@ -28,16 +30,20 @@ const projects = (await getCollection("project")).sort(
         </Link>
       </div>
       <span
-        class="intro-dark w-[50%] h-[50%] absolute top-0 left-0 bottom-0 right-0 m-auto z-0"
+        class="intro-dark w-[55%] h-[55%] absolute top-0 -right-[10%] bottom-0 my-auto z-0"
       ></span>
     </section>
 
     <section class="container">
-      <header
-        class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-24"
-      >
-        <h2 class="text-4xl text-nowrap">Mi Experiencia</h2>
-        <p>
+      <header class="max-w-[620px] mb-24">
+        <span
+          class="inline-block h-px w-10 align-middle bg-brand mr-3 mb-1.5"
+        ></span>
+        <span class="text-sm font-semibold text-brand-strong dark:text-brand"
+          >Trayectoria</span
+        >
+        <h2 class="text-4xl mt-4 mb-4">Mi Experiencia</h2>
+        <p class="text-muted-foreground">
           Últimas empresas donde me he desempeñado y aportado en diferentes
           proyectos como desarrollador Web.
         </p>
@@ -84,10 +90,15 @@ const projects = (await getCollection("project")).sort(
 
     <section class="container py-20 md:py-28">
       <header
-        class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
+        class="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-16 mb-10 md:mb-24"
       >
-        <h2 class="text-4xl">Proyectos</h2>
-        <p>
+        <h2 class="text-4xl">
+          Proyectos
+          <sup class="text-base font-semibold text-brand-strong dark:text-brand"
+            >({projects.length})</sup
+          >
+        </h2>
+        <p class="md:max-w-[420px]">
           Algunos de los proyectos en los que he liderado, participado y
           construido independiente.
         </p>
@@ -100,15 +111,17 @@ const projects = (await getCollection("project")).sort(
     </section>
 
     <section class="container py-20 md:py-28">
-      <header
-        class="flex flex-col md:flex-row justify-between gap-6 md:gap-16 mb-10 md:mb-24"
-      >
-        <h2 class="text-4xl md:text-nowrap">Te cuento sobre mí</h2>
-        <p>Un breve resumen sobre mi vida profesional.</p>
+      <header class="mb-10 md:mb-24">
+        <h2 class="text-4xl md:text-5xl max-w-[640px]">Te cuento sobre mí</h2>
+        <p class="text-muted-foreground mt-4">
+          Un breve resumen sobre mi vida profesional.
+        </p>
       </header>
 
       <div class="flex flex-col md:flex-row items-center gap-10">
-        <div class="[&_p]:mb-4 [&_strong]:text-cyan-500 flex-1">
+        <div
+          class="[&_p]:mb-4 [&_strong]:text-brand-strong dark:[&_strong]:text-brand [&_a]:text-brand-strong dark:[&_a]:text-brand flex-1"
+        >
           <p>
             Mi nombre completo es <strong
               >Oswaldo Roberto Huillca Huamani</strong
@@ -120,9 +133,9 @@ const projects = (await getCollection("project")).sort(
 
           <p>
             Como desarrollador Web he participado en diferentes retos, algunos
-            sencillos, complejos y otros con psibilidad de mejora. Es asi que en
-            mi ultima empresa he desarrollado 2 herramientas que nos ayudan a
-            mejorar el desarrollo asi reduciendo el tiempo,
+            sencillos, complejos y otros con posibilidad de mejora. Es así que en
+            mi última empresa he desarrollado 2 herramientas que nos ayudan a
+            mejorar el desarrollo, reduciendo el tiempo:
             <a
               href="https://github.com/oswaldohuillca/unocss-preset-calc"
               target="_blank"
@@ -143,8 +156,8 @@ const projects = (await getCollection("project")).sort(
 
           <p>
             Como reto personal profesional, espero mejorar constantemente y
-            aprender nuevas tecnologias para asi a posterior crear herramientas
-            que ayuden a los usuarios tener una vida menos compleja.
+            aprender nuevas tecnologías para, más adelante, crear herramientas
+            que ayuden a los usuarios a tener una vida menos compleja.
           </p>
         </div>
         <figure class="grow-0 md:max-w-[30%]">

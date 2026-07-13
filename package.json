@@ -16,6 +16,7 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@fontsource-variable/space-grotesk": "^5.2.10",
     "@tailwindcss/vite": "4.1.5",
     "date-fns": "4.1.0"
   },

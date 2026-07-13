@@ -4,19 +4,7 @@ import { getCollection } from 'astro:content'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
 
 export async function GET(context) {
-	const [posts, projects] = await Promise.all([
-		getCollection('blog'),
-		getCollection('project'),
-	])
-
-	const blogItems = posts
-		.sort((a, b) => b.data.createAt.valueOf() - a.data.createAt.valueOf())
-		.map((post) => ({
-			title: post.data.title,
-			description: post.data.description,
-			link: `/blog/${post.slug}/`,
-			pubDate: post.data.createAt,
-		}))
+	const projects = await getCollection('project')
 
 	const projectItems = projects
 		.sort((a, b) => b.data.createAt.valueOf() - a.data.createAt.valueOf())
@@ -28,7 +16,7 @@ export async function GET(context) {
 			content: project.body,
 		}))
 
-	const items = [...blogItems, ...projectItems].sort(
+	const items = [...projectItems].sort(
 		(a, b) => new Date(b.pubDate) - new Date(a.pubDate)
 	)
 

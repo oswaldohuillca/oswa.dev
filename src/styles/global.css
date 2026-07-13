@@ -41,6 +41,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Único acento de marca — usado en todo el sitio */
+  --brand: oklch(0.68 0.13 216);
+  --brand-strong: oklch(0.58 0.13 216);
 }
 
 .dark {
@@ -76,6 +79,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  --brand: oklch(0.78 0.13 210);
+  --brand-strong: oklch(0.85 0.12 205);
 }
 
 @theme inline {
@@ -115,6 +120,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --font-display: "Space Grotesk Variable", "DM Sans Variable", sans-serif;
+  --font-sans: "DM Sans Variable", sans-serif;
 }
 
 @utility container {
@@ -132,27 +141,41 @@
 
 body {
   @apply text-primary text-base;
-  font-family: "DM Sans Variable", sans-serif;
+  font-family: var(--font-sans);
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Foco visible y consistente en todo elemento interactivo */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Glow monocromático de marca — un solo hue, intencional (no rainbow) */
 .intro-dark {
-  /* palette/gradiant/intro/dark */
-  background: conic-gradient(
-    from 180deg at 50% 50%,
-    #00ff38 0deg,
-    #0500ff 360deg
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--brand) 0%,
+    transparent 70%
   );
-  border-radius: 24px;
-  filter: blur(150px);
-  opacity: 0.5;
+  filter: blur(120px);
+  opacity: 0.25;
 }
 
 .custom-blur {
-  /* palette/gradiant/content/dark */
-  background: conic-gradient(
-    from 180deg at 50% 50%,
-    #ffa800 0deg,
-    #ff00b8 360deg
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--brand) 0%,
+    transparent 70%
   );
-  filter: blur(200px);
+  filter: blur(140px);
+  opacity: 0.18;
 }

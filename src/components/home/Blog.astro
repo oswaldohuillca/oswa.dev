@@ -22,15 +22,20 @@ interface PostsResponse {
   body_markdown: string;
 }
 
-const devToPost = await fetch("https://dev.to/api/articles/me/published", {
-  headers: {
-    "api-key": import.meta.env.DEVTO_API_KEY,
-  },
-})
-  .then((res) => res.json())
-  .then((data) => data);
+let devToPost: PostsResponse[] = [];
+try {
+  const res = await fetch("https://dev.to/api/articles/me/published", {
+    headers: {
+      "api-key": import.meta.env.DEVTO_API_KEY ?? "",
+    },
+  });
+  const data = await res.json();
+  if (Array.isArray(data)) devToPost = data;
+} catch (error) {
+  console.warn("No se pudieron cargar los posts de dev.to:", error);
+}
 
-const posts: Post[] = devToPost?.map((post: PostsResponse) => ({
+const posts: Post[] = devToPost.map((post: PostsResponse) => ({
   title: post.title,
   description: post.description,
   url: post.url,
@@ -40,10 +45,13 @@ const posts: Post[] = devToPost?.map((post: PostsResponse) => ({
 }));
 ---
 
+{posts.length > 0 && (
 <section class="container my-32">
-  <header class="flex justify-between gap-16 mb-24">
-    <h2 class="text-4xl">Blog</h2>
-    <p>Puede que encuentres algún artículo interesante.</p>
+  <header class="mb-24 text-center">
+    <h2 class="text-4xl md:text-5xl">Blog</h2>
+    <p class="text-muted-foreground mt-4">
+      Puede que encuentres algún artículo interesante.
+    </p>
   </header>
   <div class="grid md:grid-cols-2 relative">
     {
@@ -59,75 +67,27 @@ const posts: Post[] = devToPost?.map((post: PostsResponse) => ({
           >
             <TextOutline>0{index + 1}</TextOutline>
             <h3 class="text-3xl">{post.title}</h3>
-            <div>
-              <datetime>{fDate(post.publishedAt)}</datetime>
+            <div class="mt-3 flex items-center gap-4">
+              <time datetime={post.publishedAt} class="text-sm text-muted-foreground">
+                {fDate(post.publishedAt)}
+              </time>
               <a
                 href={post.url}
-                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-x-1 text-sm font-semibold text-brand-strong hover:underline dark:text-brand"
               >
                 Leer más
+                <span class="icon-[iconoir--arrow-right]"></span>
               </a>
             </div>
           </article>
         );
       })
     }
-    <!-- <article
-				class="border-b border-r border-b-primary border-r-primary border-dashed p-16 relative z-10"
-			>
-				<TextOutline>01</TextOutline>
-				<h3 class="text-3xl">Art & Design</h3>
-				<div>
-					<datetime>February 11, 2021</datetime>
-					<a
-						href="#"
-						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-						>Read article</a
-					>
-				</div>
-			</article>
-			<article
-				class="border-b border-b-primary border-dashed p-16 relative z-10"
-			>
-				<TextOutline>02</TextOutline>
-				<h3 class="text-3xl">Art & Design</h3>
-				<div>
-					<datetime>February 11, 2021</datetime>
-					<a
-						href="#"
-						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-						>Read article</a
-					>
-				</div>
-			</article>
-			<article
-				class="border-r border-r-primary border-dashed p-16 relative z-10"
-			>
-				<TextOutline>02</TextOutline>
-				<h3 class="text-3xl">Art & Design</h3>
-				<div>
-					<datetime>February 11, 2021</datetime>
-					<a
-						href="#"
-						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-						>Read article</a
-					>
-				</div>
-			</article>
-			<article class="p-16 relative z-10">
-				<TextOutline>02</TextOutline>
-				<h3 class="text-3xl">Art & Design</h3>
-				<div>
-					<datetime>February 11, 2021</datetime>
-					<a
-						href="#"
-						class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-						>Read article</a
-					>
-				</div>
-			</article> -->
     <span
       class="custom-blur absolute top-0 left-0 bottom-0 right-0 m-auto w-[50%] h-[50%] z-0"
     ></span>
   </div>
 </section>
+)}
