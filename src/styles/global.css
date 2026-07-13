@@ -1,3 +1,4 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Marquee Hero · theme: Cobalt (cool near-white paper · electric cobalt accent · Space Grotesk display) · nav: N9 edge-aligned · footer: Ft1 mast-headed · enrichment: none */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./global.mdx.css";
@@ -8,8 +9,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.994 0.003 255);
+  --foreground: oklch(0.17 0.015 260);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -41,9 +42,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  /* Único acento de marca — usado en todo el sitio */
-  --brand: oklch(0.68 0.13 216);
-  --brand-strong: oklch(0.58 0.13 216);
+  /* Único acento de marca — electric cobalt, usado en todo el sitio */
+  --brand: oklch(0.53 0.21 259);
+  --brand-strong: oklch(0.47 0.21 259);
 }
 
 .dark {
@@ -79,8 +80,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-  --brand: oklch(0.78 0.13 210);
-  --brand-strong: oklch(0.85 0.12 205);
+  --brand: oklch(0.72 0.16 256);
+  --brand-strong: oklch(0.80 0.13 256);
 }
 
 @theme inline {
@@ -159,23 +160,18 @@ button:focus-visible {
   border-radius: 4px;
 }
 
-/* Glow monocromático de marca — un solo hue, intencional (no rainbow) */
-.intro-dark {
-  background: radial-gradient(
-    circle at 50% 50%,
-    var(--brand) 0%,
-    transparent 70%
-  );
-  filter: blur(120px);
-  opacity: 0.25;
+/* Marquee hero — display fills the fold, hugging the type scale */
+.display-marquee {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  font-size: clamp(2.75rem, 9vw, 6.5rem);
+  overflow-wrap: anywhere;
 }
 
-.custom-blur {
-  background: radial-gradient(
-    circle at 50% 50%,
-    var(--brand) 0%,
-    transparent 70%
-  );
-  filter: blur(140px);
-  opacity: 0.18;
+/* Regla gruesa que separa el hero del resto (macro Marquee) */
+.rule-thick {
+  border: 0;
+  border-top: 2px solid var(--foreground);
 }
