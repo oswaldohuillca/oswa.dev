@@ -1,0 +1,42 @@
+/* Hallmark · genre: modern-minimal · theme: Cobalt
+ * Portable design tokens for oswa.dev. The live source of truth is
+ * src/styles/global.css (Tailwind v4 @theme). This file mirrors the system
+ * so it can be dropped into another project. */
+
+:root {
+  /* Paper / ink — cool near-white */
+  --color-paper: oklch(0.994 0.003 255);
+  --color-ink: oklch(0.17 0.015 260);
+  --color-ink-2: oklch(0.556 0 0); /* muted-foreground */
+  --color-rule: oklch(0.922 0 0); /* border / hairline */
+
+  /* Accent — electric cobalt (single accent, ≤5% per viewport) */
+  --color-accent: oklch(0.53 0.21 259);
+  --color-accent-strong: oklch(0.47 0.21 259);
+  --color-focus: oklch(0.53 0.21 259);
+
+  /* Type */
+  --font-display: "Space Grotesk Variable", sans-serif;
+  --font-body: "DM Sans Variable", sans-serif;
+  --display-tracking: -0.035em;
+
+  /* Spacing — 4pt scale */
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+
+  --radius: 0.625rem;
+}
+
+/* Dark */
+.dark {
+  --color-paper: oklch(0.145 0 0);
+  --color-ink: oklch(0.985 0 0);
+  --color-accent: oklch(0.72 0.16 256);
+  --color-accent-strong: oklch(0.8 0.13 256);
+}

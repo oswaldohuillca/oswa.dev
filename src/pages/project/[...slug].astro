@@ -22,6 +22,8 @@ const { Content } = await project.render();
   description={project.data.description}
   image={project.data.heroImage}
   imageAlt={project.data.title}
+  type="article"
+  publishedTime={project.data.createAt.toISOString()}
 >
   <section class="container pt-24">
     <div class="flex flex-col gap-4 md:flex-row">
@@ -29,7 +31,7 @@ const { Content } = await project.render();
         <div class="h-full">
           <div class="sticky top-24">
             <h1
-              class="text-2xl md:text-4xl mb-2 text-cyan-500 font-bold text-balance"
+              class="text-2xl md:text-4xl mb-2 text-brand-strong dark:text-brand font-bold text-balance"
             >
               {project.data.title}
             </h1>

@@ -12,9 +12,20 @@ interface Props {
   description?: string;
   image?: string;
   imageAlt?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
-const { title: pageTitle, description: pageDesc, image: pageImage, imageAlt: pageImageAlt } = Astro.props;
+const {
+  title: pageTitle,
+  description: pageDesc,
+  image: pageImage,
+  imageAlt: pageImageAlt,
+  type,
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
 const title = pageTitle ?? SITE_TITLE;
 const description = pageDesc ?? SITE_DESCRIPTION;
 const isHomepage = Astro.url.pathname === "/" || Astro.url.pathname === "";
@@ -53,6 +64,9 @@ const jsonLd = isHomepage
       description={description}
       image={pageImage ?? "/images/oswaldo-huillca.webp"}
       imageAlt={pageImageAlt ?? "Oswaldo Huillca - Desarrollador Web Full Stack"}
+      type={type}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
     >
       {jsonLd && (
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

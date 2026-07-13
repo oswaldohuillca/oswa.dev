@@ -12,43 +12,42 @@ const projects = (await getCollection("project")).sort(
 );
 ---
 
-<MainLayout>
+<MainLayout title="Oswaldo Huillca — Desarrollador Web Full Stack">
   <main>
-    <section class="min-h-[655px] flex items-center container relative">
-      <div class="relative z-10 max-w-[800px]">
-        <p class="text-brand-strong dark:text-brand font-semibold mb-6">
-          Desarrollador Web Full Stack
-        </p>
-        <h1 class="text-5xl md:text-6xl text-balance leading-[1.05] mb-8">
-          Hola, soy <strong class="text-brand-strong dark:text-brand"
-            >Oswaldo</strong
-          >. Construyo la web que usas todos los días.
-        </h1>
+    <section class="container min-h-[86vh] flex flex-col justify-center py-24">
+      <p class="text-sm font-semibold text-brand-strong dark:text-brand mb-6">
+        Desarrollador Web Full Stack · Perú
+      </p>
+      <h1 class="display-marquee max-w-[15ch]">
+        Construyo la web que usas todos los días.
+      </h1>
+      <p class="mt-10 max-w-[48ch] text-lg text-muted-foreground">
+        Hola, soy Oswaldo —
+        <strong class="text-foreground font-semibold">Oswa</strong> para los
+        amigos. Más de 4 años convirtiendo ideas en interfaces rápidas y
+        mantenibles con PHP, Laravel, Next.js y PostgreSQL.
+      </p>
+      <div class="mt-12">
         <Link href="/CV-Oswaldo.pdf" download="CV-Oswa.pdf">
           Descargar CV
           <span class="icon-[iconamoon--cloud-download]"></span>
         </Link>
       </div>
-      <span
-        class="intro-dark w-[55%] h-[55%] absolute top-0 -right-[10%] bottom-0 my-auto z-0"
-      ></span>
     </section>
 
-    <section class="container">
-      <header class="max-w-[620px] mb-24">
-        <span
-          class="inline-block h-px w-10 align-middle bg-brand mr-3 mb-1.5"
-        ></span>
-        <span class="text-sm font-semibold text-brand-strong dark:text-brand"
-          >Trayectoria</span
-        >
-        <h2 class="text-4xl mt-4 mb-4">Mi Experiencia</h2>
-        <p class="text-muted-foreground">
-          Últimas empresas donde me he desempeñado y aportado en diferentes
-          proyectos como desarrollador Web.
+    <div class="container">
+      <hr class="rule-thick" />
+    </div>
+
+    <section class="container py-24 md:py-32">
+      <header class="max-w-[620px] mb-16">
+        <h2 class="text-4xl md:text-5xl">Experiencia</h2>
+        <p class="text-muted-foreground mt-4">
+          Empresas donde me he desempeñado y aportado en distintos proyectos
+          como desarrollador Web.
         </p>
       </header>
-      <div class="mb-24 lg:w-[80%]">
+      <div>
         <TimelineItem
           date="01 Octubre, 2022 - Actualmente"
           title="Desarrollador Full Stack (PHP, Mysql, JavaScript, NextJs, PostgreSQL, Laravel)"
@@ -69,7 +68,7 @@ const projects = (await getCollection("project")).sort(
         >
           <p>
             Participé en el desarrollo de un software interno de la empresa para
-            la gestión de historias y citas medicas.
+            la gestión de historias y citas médicas.
           </p>
         </TimelineItem>
 
@@ -80,8 +79,8 @@ const projects = (await getCollection("project")).sort(
         >
           <p>
             Tuve la oportunidad de mejorar una herramienta interna de la empresa
-            el cual se usa para generar certificados, implemtentos diferentes
-            funcionalidades como busqueda, filtrado y asignación mediante
+            el cual se usa para generar certificados; implementé diferentes
+            funcionalidades como búsqueda, filtrado y asignación mediante
             códigos QR.
           </p>
         </TimelineItem>
@@ -128,7 +127,7 @@ const projects = (await getCollection("project")).sort(
             >
             pero suelen llamarme <strong>Oswa</strong> para que no sea muy largo.
             No hace mucho estoy en el mundo de la programación, profesionalmente
-            empece hace 4 años hasta la fecha.
+            empecé hace 4 años hasta la fecha.
           </p>
 
           <p>
@@ -142,7 +141,7 @@ const projects = (await getCollection("project")).sort(
               class="underline"
             >
               UnoCSS preset calc
-            </a> el cual nos permite crear interfaces identicas al diseño UI de
+            </a> el cual nos permite crear interfaces idénticas al diseño UI de
             <i>Figma</i> u otras herramientas de diseño UI.
             <a
               href="https://github.com/oswaldohuillca/wp-dev-kit-started"
@@ -166,7 +165,7 @@ const projects = (await getCollection("project")).sort(
             width={600}
             height={600}
             alt="Oswaldo Roberto Huillca Huamani"
-            class="min-h-10 rounded-lg"
+            class="min-h-10 rounded-2xl ring-1 ring-border"
           />
         </figure>
       </div>

@@ -22,3 +22,4 @@ bun.lock
 # macOS-specific files
 .DS_Store
 .claude
+.hallmark
