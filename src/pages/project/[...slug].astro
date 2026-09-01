@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
+import Link from "../../components/Link.astro";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
@@ -27,7 +28,7 @@ const { Content } = await project.render();
 >
   <section class="container pt-24">
     <div class="flex flex-col gap-4 md:flex-row">
-      <aside class="min-w-[380px]">
+      <aside class="md:min-w-[380px]">
         <div class="h-full">
           <div class="sticky top-24">
             <h1
@@ -36,10 +37,43 @@ const { Content } = await project.render();
               {project.data.title}
             </h1>
             <FormattedDate date={project.data.createAt} />
+            {
+              project.data.status && (
+                <p class="mt-2 text-sm text-muted-foreground">
+                  {project.data.status}
+                </p>
+              )
+            }
+            {
+              (project.data.website || project.data.github) && (
+                <div class="mt-6 flex flex-wrap items-center gap-1">
+                  {project.data.website && (
+                    <Link
+                      href={project.data.website}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Ver sitio
+                      <span class="icon-[iconoir--internet]" />
+                    </Link>
+                  )}
+                  {project.data.github && (
+                    <Link
+                      href={project.data.github}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Repositorio
+                      <span class="icon-[ant-design--github-outlined]" />
+                    </Link>
+                  )}
+                </div>
+              )
+            }
           </div>
         </div>
       </aside>
-      <div class="mdx">
+      <div class="mdx min-w-0 flex-1">
         {
           project.data.heroImage && (
             <Image

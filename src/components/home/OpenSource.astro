@@ -1,0 +1,154 @@
+---
+/* Hallmark · component: open-source index · genre: modern-minimal · theme: Cobalt
+ * states: default · hover · focus · active · disabled · loading · error · success
+ * Índice tipográfico: estos proyectos son paquetes sin interfaz propia, así que
+ * la fila no lleva captura — el nombre, el comando de instalación y los enlaces
+ * son todo el contenido que existe de verdad.
+ */
+import type { CollectionEntry } from "astro:content";
+
+import Link from "../Link.astro";
+import Badge from "../Badge.astro";
+
+interface Props {
+  project: CollectionEntry<"project">;
+}
+
+const { project } = Astro.props;
+const { title, description, tags, github, website, install, registry, status } =
+  project.data;
+
+const registryLabel: Record<string, { label: string; icon: string }> = {
+  npm: { label: "npm", icon: "icon-[iconoir--npm]" },
+  packagist: { label: "Packagist", icon: "icon-[iconoir--package]" },
+};
+
+const meta = registry ? registryLabel[registry] : undefined;
+---
+
+<article
+  class="group border-t border-border py-8 md:py-10 first:border-t-0 first:pt-0"
+>
+  <div
+    class="flex flex-col-reverse gap-y-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6"
+  >
+    <h3
+      class="text-2xl md:text-3xl transition-colors group-hover:text-brand-strong dark:group-hover:text-brand"
+    >
+      <a href={`/project/${project.slug}/`} class="hover:underline">
+        {title}
+      </a>
+    </h3>
+    {
+      meta && (
+        <p class="flex shrink-0 items-center gap-x-1.5 text-sm text-muted-foreground">
+          <span class={meta.icon} aria-hidden="true" />
+          {meta.label}
+        </p>
+      )
+    }
+    {
+      !meta && status && (
+        <p class="shrink-0 text-sm text-muted-foreground">{status}</p>
+      )
+    }
+  </div>
+
+  <p class="mt-3 max-w-[58ch] text-muted-foreground">{description}</p>
+
+  {
+    install && (
+      <div class="mt-5 flex max-w-full items-center gap-x-2 overflow-hidden rounded-lg border border-border bg-muted/40 ps-3 pe-1 py-1">
+        <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap py-1.5 font-mono text-sm text-foreground">
+          {install}
+        </code>
+        <button
+          type="button"
+          data-copy={install}
+          aria-label={`Copiar «${install}»`}
+          class="shrink-0 rounded-md p-2 text-lg text-muted-foreground transition-colors hover:text-brand-strong dark:hover:text-brand active:text-foreground disabled:opacity-50 disabled:pointer-events-none data-[state=success]:text-brand-strong dark:data-[state=success]:text-brand data-[state=error]:text-destructive"
+        >
+          <span class="icon-[iconoir--copy]" data-icon="idle"></span>
+          <span class="icon-[iconoir--check] hidden" data-icon="success"></span>
+          <span
+            class="icon-[iconoir--warning-triangle] hidden"
+            data-icon="error"></span>
+        </button>
+      </div>
+    )
+  }
+
+  {
+    tags && (
+      <div class="mt-5 flex flex-wrap gap-1">
+        {tags.map((tag) => (
+          <Badge>{tag}</Badge>
+        ))}
+      </div>
+    )
+  }
+
+  <div class="mt-5 flex flex-wrap items-center gap-1">
+    <Link href={`/project/${project.slug}/`}>Leer más</Link>
+    {
+      website && (
+        <Link
+          href={website}
+          size="icon"
+          target="_blank"
+          rel="noopener"
+          aria-label={`Sitio de ${title}`}
+        >
+          <span class="icon-[iconoir--internet]" />
+        </Link>
+      )
+    }
+    {
+      github && (
+        <Link
+          href={github}
+          size="icon"
+          target="_blank"
+          rel="noopener"
+          aria-label={`Repositorio de ${title}`}
+        >
+          <span class="icon-[ant-design--github-outlined]" />
+        </Link>
+      )
+    }
+  </div>
+</article>
+
+<script>
+  // Copiar el comando de instalación. Éxito silencioso: el icono cambia y vuelve
+  // solo. Sin toast, sin animación — el cambio de icono ya es la confirmación.
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as HTMLElement)?.closest<HTMLButtonElement>(
+      "button[data-copy]",
+    );
+    if (!button) return;
+
+    const icons = button.querySelectorAll<HTMLElement>("[data-icon]");
+    const show = (name: string) =>
+      icons.forEach((icon) =>
+        icon.classList.toggle("hidden", icon.dataset.icon !== name),
+      );
+
+    button.disabled = true; // estado loading: breve, pero evita el doble clic
+    let state = "success";
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy ?? "");
+    } catch {
+      state = "error";
+    }
+
+    button.dataset.state = state;
+    show(state);
+
+    setTimeout(() => {
+      show("idle");
+      delete button.dataset.state;
+      button.disabled = false;
+    }, 1600);
+  });
+</script>

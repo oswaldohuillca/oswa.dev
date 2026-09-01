@@ -48,14 +48,18 @@ const isEven = index % 2 === 0;
       }
       <div class="flex items-center gap-1">
         <Link href={`/project/${project.slug}/`}> Leer más </Link>
-        <Link
-          href={project.data.website}
-          size="icon"
-          target="_blank"
-          aria-label="Visit to Website"
-        >
-          <span class="icon-[iconoir--internet]"></span>
-        </Link>
+        {
+          project.data.website && (
+            <Link
+              href={project.data.website}
+              size="icon"
+              target="_blank"
+              aria-label="Visit to Website"
+            >
+              <span class="icon-[iconoir--internet]" />
+            </Link>
+          )
+        }
         {
           project.data.github && (
             <Link

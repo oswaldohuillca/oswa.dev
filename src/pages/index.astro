@@ -6,10 +6,19 @@ import TimelineItem from "../components/home/TimelineItem.astro";
 import { Image } from "astro:assets";
 import Link from "../components/Link.astro";
 import Blog from "../components/home/Blog.astro";
+import OpenSource from "../components/home/OpenSource.astro";
 
-const projects = (await getCollection("project")).sort(
-  (a, b) => a.data.createAt.valueOf() - b.data.createAt.valueOf()
-);
+const all = await getCollection("project");
+
+// Casos de estudio: sitios con captura, en orden cronológico.
+const projects = all
+  .filter(({ data }) => data.kind === "case-study")
+  .sort((a, b) => a.data.createAt.valueOf() - b.data.createAt.valueOf());
+
+// Paquetes open-source: sin interfaz propia, los más recientes primero.
+const libraries = all
+  .filter(({ data }) => data.kind === "library")
+  .sort((a, b) => b.data.createAt.valueOf() - a.data.createAt.valueOf());
 ---
 
 <MainLayout title="Oswaldo Huillca — Desarrollador Web Full Stack">
@@ -107,6 +116,26 @@ const projects = (await getCollection("project")).sort(
           <Project project={project} index={index + 1} />
         ))
       }
+    </section>
+
+    <section class="container py-20 md:py-28">
+      <header
+        class="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-16 mb-10 md:mb-16"
+      >
+        <h2 class="text-4xl">
+          Herramientas
+          <sup class="text-base font-semibold text-brand-strong dark:text-brand"
+            >({libraries.length})</sup
+          >
+        </h2>
+        <p class="md:max-w-[420px]">
+          Librerías de código abierto que mantengo y uso a diario: no tienen
+          interfaz propia, viven dentro de otros proyectos.
+        </p>
+      </header>
+      <div>
+        {libraries.map((project) => <OpenSource project={project} />)}
+      </div>
     </section>
 
     <section class="container py-20 md:py-28">
