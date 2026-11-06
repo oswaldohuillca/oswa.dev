@@ -1,10 +1,7 @@
-/* Hallmark · genre: modern-minimal · macrostructure: Marquee Hero · theme: Cobalt (cool near-white paper · electric cobalt accent · Space Grotesk display) · nav: N9 edge-aligned · footer: Ft1 mast-headed · enrichment: none */
+/* Hallmark · genre: modern-minimal · theme: Cobalt (cool near-white paper · electric cobalt accent · Space Grotesk display) · nav: N9 edge-aligned · footer: Ft1 mast-headed · enrichment: none */
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "./global.mdx.css";
 @plugin "@iconify/tailwind4";
-@import "preline/variants.css";
-@source "../../node_modules/preline/dist/*.js";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -20,7 +17,7 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.5 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -48,7 +45,8 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  color-scheme: dark;
+  --background: #121212;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -128,7 +126,7 @@
 }
 
 @utility container {
-  @apply mx-auto max-w-[1024px] px-5 md:px-20;
+  @apply mx-auto max-w-[1440px] px-5 md:px-10 xl:px-16;
 }
 
 @layer base {
@@ -137,6 +135,49 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+::selection {
+  background: var(--brand-strong);
+  color: var(--background);
+}
+
+html {
+  scrollbar-color: var(--muted-foreground) transparent;
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
+
+/* Único movimiento de la página: el retrato entra al cargar */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+/* Que los anclajes y el foco no queden bajo el header fijo */
+html {
+  scroll-padding-top: 6rem;
+}
+
+/* Los iconos son máscaras CSS: sin esto desaparecen en alto contraste */
+@media (forced-colors: active) {
+  [class*="icon-["] {
+    forced-color-adjust: none;
+    background-color: CanvasText;
   }
 }
 
@@ -157,21 +198,10 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
-/* Marquee hero — display fills the fold, hugging the type scale */
-.display-marquee {
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-  font-size: clamp(2.75rem, 9vw, 6.5rem);
-  overflow-wrap: anywhere;
-}
-
-/* Regla gruesa que separa el hero del resto (macro Marquee) */
-.rule-thick {
-  border: 0;
-  border-top: 2px solid var(--foreground);
+/* Dentro de una caja con overflow-hidden: el contorno va hacia adentro para que no se recorte */
+code[tabindex="0"]:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
 }

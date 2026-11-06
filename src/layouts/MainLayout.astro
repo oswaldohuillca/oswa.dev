@@ -6,6 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "../consts";
 // Supports weights 100-900
 import "@fontsource-variable/dm-sans";
 import "@fontsource-variable/space-grotesk";
+import displayFontUrl from "@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url";
 
 interface Props {
   title?: string;
@@ -15,6 +16,7 @@ interface Props {
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -25,6 +27,7 @@ const {
   type,
   publishedTime,
   modifiedTime,
+  noindex,
 } = Astro.props;
 const title = pageTitle ?? SITE_TITLE;
 const description = pageDesc ?? SITE_DESCRIPTION;
@@ -41,7 +44,7 @@ const jsonLd = isHomepage
           url: SITE_URL,
           jobTitle: "Desarrollador Web Full Stack",
           description: SITE_DESCRIPTION,
-          image: `${SITE_URL}/images/oswaldo-huillca.webp`,
+          image: `${SITE_URL}/images/oswaldo-retrato.webp`,
         },
         {
           "@type": "WebSite",
@@ -62,23 +65,43 @@ const jsonLd = isHomepage
     <BaseHead
       title={title}
       description={description}
-      image={pageImage ?? "/images/oswaldo-huillca.webp"}
+      image={pageImage ?? "/images/oswaldo-retrato.webp"}
       imageAlt={pageImageAlt ?? "Oswaldo Huillca - Desarrollador Web Full Stack"}
       type={type}
       publishedTime={publishedTime}
       modifiedTime={modifiedTime}
+      noindex={noindex}
     >
       {jsonLd && (
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
       )}
+      <link rel="preload" href={displayFontUrl} as="font" type="font/woff2" crossorigin />
     </BaseHead>
-  </head>
-  <body class="dark:bg-[#121212]">
-    <Header />
-    <slot />
-    <Footer />
-    <script>
-      import "preline/dist/preline.js";
+    <script is:inline>
+      // Antes del primer pintado para evitar el parpadeo. Otro valor (como el antiguo "default") sigue al sistema.
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem("hs_theme");
+        } catch (e) {}
+        var dark =
+          theme === "dark" ||
+          (theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
     </script>
+  </head>
+  <body>
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-background focus:px-4 focus:py-2"
+    >
+      Saltar al contenido
+    </a>
+    <Header />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

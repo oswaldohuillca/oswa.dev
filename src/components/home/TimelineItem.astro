@@ -27,9 +27,10 @@ const label = typeof date === "string" ? date : new Date(date).toDateString();
             href={companyLink}
             target="_blank"
             rel="noopener noreferrer"
-            class="hover:underline"
+            class="inline-block -my-3 py-3 hover:underline"
           >
             {company}
+            <span class="sr-only"> (abre en otra pestaña)</span>
           </a>
         ) : (
           company

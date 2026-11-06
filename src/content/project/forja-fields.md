@@ -1,10 +1,12 @@
 ---
 title: 'Forja'
 description: 'Librería de Composer para declarar campos personalizados de WordPress desde el código del tema, conservando la interfaz de edición de ACF que los editores ya conocen.'
+tagline: 'Campos de WordPress declarados en código'
 createAt: 'August 19 2026'
 kind: 'library'
 github: 'https://github.com/oswaldohuillca/forja-fields'
-status: 'En desarrollo · aún no publicado en Packagist'
+install: 'composer require forja-wp/forja-fields'
+registry: 'packagist'
 tags: ["php", "wordpress", "composer", "acf"]
 ---
 

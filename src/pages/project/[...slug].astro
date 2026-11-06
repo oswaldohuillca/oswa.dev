@@ -3,6 +3,8 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Link from "../../components/Link.astro";
+import Badge from "../../components/Badge.astro";
+import CopyButton from "../../components/CopyButton.astro";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
@@ -16,6 +18,7 @@ type Props = CollectionEntry<"project">;
 
 const project = Astro.props;
 const { Content } = await project.render();
+const isLibrary = project.data.kind === "library";
 ---
 
 <MainLayout
@@ -26,68 +29,87 @@ const { Content } = await project.render();
   type="article"
   publishedTime={project.data.createAt.toISOString()}
 >
-  <section class="container pt-24">
-    <div class="flex flex-col gap-4 md:flex-row">
-      <aside class="md:min-w-[380px]">
-        <div class="h-full">
-          <div class="sticky top-24">
-            <h1
-              class="text-2xl md:text-4xl mb-2 text-brand-strong dark:text-brand font-bold text-balance"
-            >
-              {project.data.title}
-            </h1>
-            <FormattedDate date={project.data.createAt} />
-            {
-              project.data.status && (
-                <p class="mt-2 text-sm text-muted-foreground">
-                  {project.data.status}
-                </p>
-              )
-            }
-            {
-              (project.data.website || project.data.github) && (
-                <div class="mt-6 flex flex-wrap items-center gap-1">
-                  {project.data.website && (
-                    <Link
-                      href={project.data.website}
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      Ver sitio
-                      <span class="icon-[iconoir--internet]" />
-                    </Link>
-                  )}
-                  {project.data.github && (
-                    <Link
-                      href={project.data.github}
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      Repositorio
-                      <span class="icon-[ant-design--github-outlined]" />
-                    </Link>
-                  )}
-                </div>
-              )
-            }
+  <article class="container pt-24">
+    <div class="mx-auto max-w-4xl">
+    <a
+      href={isLibrary ? "/#herramientas" : "/#proyectos"}
+      class="inline-flex h-11 items-center gap-x-2 text-sm font-medium text-muted-foreground hover:text-brand-strong dark:hover:text-brand transition-colors"
+    >
+      <span class="icon-[iconoir--arrow-left]" aria-hidden="true"></span>
+      {isLibrary ? "Todas las herramientas" : "Todos los proyectos"}
+    </a>
+
+    <header class="mt-4 mb-10 max-w-[68ch]">
+      <h1
+        class="text-3xl md:text-5xl mb-2 text-brand-strong dark:text-brand font-bold text-balance"
+      >
+        {project.data.title}
+      </h1>
+      <FormattedDate date={project.data.createAt} />
+      {
+        project.data.status && (
+          <p class="mt-2 text-sm text-muted-foreground">{project.data.status}</p>
+        )
+      }
+      {
+        project.data.tags && (
+          <div class="mt-4 flex flex-wrap gap-1">
+            {project.data.tags.map((tag) => (
+              <Badge>{tag}</Badge>
+            ))}
           </div>
-        </div>
-      </aside>
-      <div class="mdx min-w-0 flex-1">
-        {
-          project.data.heroImage && (
-            <Image
-              src={project.data.heroImage}
-              alt={project.data.title}
-              format="webp"
-              width={650}
-              height={650}
-              class="max-h-[300px] object-cover object-top"
+        )
+      }
+      {
+        project.data.install && (
+          <div class="mt-5 flex items-center gap-x-2 overflow-hidden rounded-lg border border-border bg-muted/40 ps-3 pe-1">
+            <code tabindex="0" class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap py-1.5 font-mono text-sm text-foreground">
+              {project.data.install}
+            </code>
+            <CopyButton
+              text={project.data.install}
+              label={`Copiar «${project.data.install}»`}
             />
-          )
-        }
-        <Content />
-      </div>
+          </div>
+        )
+      }
+      {
+        (project.data.website || project.data.github) && (
+          <div class="mt-6 flex flex-wrap items-center gap-2">
+            {project.data.website && (
+              <Link href={project.data.website} target="_blank" rel="noopener">
+                Ver sitio
+                <span class="icon-[iconoir--internet]" aria-hidden="true" />
+                <span class="sr-only">(abre en otra pestaña)</span>
+              </Link>
+            )}
+            {project.data.github && (
+              <Link href={project.data.github} target="_blank" rel="noopener">
+                Repositorio
+                <span class="icon-[iconoir--github]" aria-hidden="true" />
+                <span class="sr-only">(abre en otra pestaña)</span>
+              </Link>
+            )}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="mdx min-w-0">
+      {
+        project.data.heroImage && (
+          <Image
+            src={project.data.heroImage}
+            alt={`Captura del sitio de ${project.data.title}`}
+            format="webp"
+            width={650}
+            height={650}
+            class="w-full max-h-[300px] object-cover object-top"
+          />
+        )
+      }
+      <Content />
     </div>
-  </section>
+    </div>
+  </article>
 </MainLayout>
