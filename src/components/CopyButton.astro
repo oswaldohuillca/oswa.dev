@@ -1,0 +1,54 @@
+---
+interface Props {
+  text: string;
+  label: string;
+}
+
+const { text, label } = Astro.props;
+---
+
+<button
+  type="button"
+  data-copy={text}
+  aria-label={label}
+  class="flex size-11 shrink-0 items-center justify-center rounded-md text-lg text-muted-foreground transition-colors hover:text-brand-strong dark:hover:text-brand active:text-foreground data-[state=success]:text-brand-strong dark:data-[state=success]:text-brand data-[state=error]:text-destructive dark:data-[state=error]:text-destructive-foreground"
+>
+  <span class="icon-[iconoir--copy]" data-icon="idle"></span>
+  <span class="icon-[iconoir--check] hidden" data-icon="success"></span>
+  <span class="icon-[iconoir--warning-triangle] hidden" data-icon="error"></span>
+</button>
+<span class="sr-only" role="status"></span>
+
+<script>
+  // Sin disabled: desactivar el botón haría perder el foco del teclado.
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as HTMLElement)?.closest<HTMLButtonElement>(
+      "button[data-copy]",
+    );
+    if (!button || button.dataset.state) return;
+
+    const icons = button.querySelectorAll<HTMLElement>("[data-icon]");
+    const show = (name: string) =>
+      icons.forEach((icon) =>
+        icon.classList.toggle("hidden", icon.dataset.icon !== name),
+      );
+    const status = button.nextElementSibling as HTMLElement;
+
+    let state = "success";
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy ?? "");
+    } catch {
+      state = "error";
+    }
+
+    button.dataset.state = state;
+    show(state);
+    status.textContent = state === "success" ? "Copiado" : "No se pudo copiar";
+
+    setTimeout(() => {
+      show("idle");
+      delete button.dataset.state;
+      status.textContent = "";
+    }, 1600);
+  });
+</script>

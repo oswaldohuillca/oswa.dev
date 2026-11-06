@@ -1,6 +1,7 @@
 ---
 title: 'FormifyPhp'
 description: 'Librería de Composer para construir formularios HTML en PHP: campos declarados en código y control total sobre cómo se renderiza cada label, wrapper y error.'
+tagline: 'Formularios HTML en PHP'
 createAt: 'December 21 2025'
 kind: 'library'
 github: 'https://github.com/oswaldohuillca/formify-php'

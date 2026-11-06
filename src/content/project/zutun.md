@@ -14,5 +14,5 @@ Zutun.io es un sitio minimalista, ofrecen servicios de desarrollo de software y 
 
 ## Metodología y herramientas
 
-Zutun está construido sobre Wordpress, ACF, custom child theme, tailwindcss para los estilos y vitejs como herramienta de desarrollo.
-Así puse generar un comprimido de los estilos y los scripts y no tenerlo en varios archivos, haciendo que el sitio cargo lo minino posible de archivos estáticos.
+Zutun está construido sobre WordPress, ACF, custom child theme, tailwindcss para los estilos y vitejs como herramienta de desarrollo.
+Así pude generar un comprimido de los estilos y los scripts en lugar de tenerlos en varios archivos, haciendo que el sitio cargue el mínimo posible de archivos estáticos.

@@ -5,6 +5,8 @@ const project = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
+		/** Resumen de una línea para listas compactas. */
+		tagline: z.string().optional(),
 		createAt: z.coerce.date(),
 		heroImage: z.string().optional(),
 		tags: z.array(z.string()).optional(),

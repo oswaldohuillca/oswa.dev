@@ -1,205 +1,236 @@
 ---
 import { getCollection } from "astro:content";
-import Project from "../components/home/Project.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import TimelineItem from "../components/home/TimelineItem.astro";
 import { Image } from "astro:assets";
 import Link from "../components/Link.astro";
 import Blog from "../components/home/Blog.astro";
 import OpenSource from "../components/home/OpenSource.astro";
+import { CONTACT_EMAIL } from "../consts";
 
 const all = await getCollection("project");
 
-// Casos de estudio: sitios con captura, en orden cronológico.
+// Casos de estudio: sitios con captura, los más recientes primero.
 const projects = all
   .filter(({ data }) => data.kind === "case-study")
-  .sort((a, b) => a.data.createAt.valueOf() - b.data.createAt.valueOf());
+  .sort((a, b) => b.data.createAt.valueOf() - a.data.createAt.valueOf());
 
 // Paquetes open-source: sin interfaz propia, los más recientes primero.
 const libraries = all
   .filter(({ data }) => data.kind === "library")
   .sort((a, b) => b.data.createAt.valueOf() - a.data.createAt.valueOf());
+
+const sectionGrid =
+  "container grid grid-cols-1 gap-x-16 gap-y-10 py-14 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]";
+const sectionHeader = "lg:sticky lg:top-24 lg:self-start";
 ---
 
 <MainLayout title="Oswaldo Huillca — Desarrollador Web Full Stack">
-  <main>
-    <section class="container min-h-[86vh] flex flex-col justify-center py-24">
-      <p class="text-sm font-semibold text-brand-strong dark:text-brand mb-6">
-        Desarrollador Web Full Stack · Perú
-      </p>
-      <h1 class="display-marquee max-w-[15ch]">
-        Construyo la web que usas todos los días.
+  <section
+    class="grid grid-cols-1 lg:min-h-svh lg:grid-cols-[minmax(0,1fr)_44vw] lg:grid-rows-[1fr_auto]"
+  >
+    <div
+      class="flex flex-col justify-center px-5 pt-24 pb-10 md:px-10 lg:pr-10 lg:pb-12 xl:pl-[max(4rem,calc((100vw-1440px)/2+4rem))]"
+    >
+      <h1
+        class="max-w-[14ch] text-[clamp(2.5rem,11vw,4.5rem)] leading-[1] font-bold lg:text-[clamp(3.5rem,5.9vw,5.25rem)]"
+      >
+        Desarrollo webs rápidas y fáciles de mantener.
       </h1>
-      <p class="mt-10 max-w-[48ch] text-lg text-muted-foreground">
-        Hola, soy Oswaldo —
+      <p class="mt-6 max-w-[52ch] text-lg text-muted-foreground">
+        Hola, soy Oswaldo Huillca,
         <strong class="text-foreground font-semibold">Oswa</strong> para los
-        amigos. Más de 4 años convirtiendo ideas en interfaces rápidas y
-        mantenibles con PHP, Laravel, Next.js y PostgreSQL.
+        amigos. Llevo más de 4 años convirtiendo ideas en productos web con PHP,
+        Laravel, Next.js y PostgreSQL, para empresas y proyectos freelance desde
+        Perú.
       </p>
-      <div class="mt-12">
+      <div class="mt-6 flex flex-wrap items-center gap-2">
+        <Link href={`mailto:${CONTACT_EMAIL}`} variant="primary">Escríbeme</Link>
+        <Link href="#proyectos">Ver proyectos</Link>
         <Link href="/CV-Oswaldo.pdf" download="CV-Oswa.pdf">
-          Descargar CV
-          <span class="icon-[iconamoon--cloud-download]"></span>
+          Descargar CV (PDF, 528 KB)
+          <span class="icon-[iconoir--cloud-download]" aria-hidden="true"></span>
         </Link>
       </div>
-    </section>
-
-    <div class="container">
-      <hr class="rule-thick" />
     </div>
 
-    <section class="container py-24 md:py-32">
-      <header class="max-w-[620px] mb-16">
-        <h2 class="text-4xl md:text-5xl">Experiencia</h2>
-        <p class="text-muted-foreground mt-4">
-          Empresas donde me he desempeñado y aportado en distintos proyectos
-          como desarrollador Web.
-        </p>
-      </header>
-      <div>
-        <TimelineItem
-          date="01 Octubre, 2022 - Actualmente"
-          title="Desarrollador Full Stack (PHP, Mysql, JavaScript, NextJs, PostgreSQL, Laravel)"
-          company="apros.global"
-          companyLink="https://apros.global"
-        >
-          <p>
-            Implementé una plantilla para mejorar la experiencia de desarrollo y
-            mejorar el rendimiento de los sitios Web, evitando el uso excesivo
-            de plugins de Wordpress que invaden con gigantescos archivos que lo
-            componen.
-          </p>
-        </TimelineItem>
-        <TimelineItem
-          date="28 enero, 2022"
-          title="Desarrollador Full Stack (NextJs, MongoDB)"
-          company="Clinica San Carlos"
-        >
-          <p>
-            Participé en el desarrollo de un software interno de la empresa para
-            la gestión de historias y citas médicas.
-          </p>
-        </TimelineItem>
+    <div class="rise relative lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-[4.3rem]">
+      <Image
+        src="/images/oswaldo-retrato.webp"
+        width={1086}
+        height={1448}
+        alt="Oswaldo Roberto Huillca Huamani"
+        loading="eager"
+        class="aspect-square w-full object-cover object-[50%_20%] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+      />
+    </div>
 
-        <TimelineItem
-          date="Febrero, 2021"
-          title="Desarrollador Full Stack (LAMP)"
-          company="EEGSAC"
-        >
-          <p>
-            Tuve la oportunidad de mejorar una herramienta interna de la empresa
-            el cual se usa para generar certificados; implementé diferentes
-            funcionalidades como búsqueda, filtrado y asignación mediante
-            códigos QR.
-          </p>
-        </TimelineItem>
-      </div>
-    </section>
-
-    <section class="container py-20 md:py-28">
-      <header
-        class="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-16 mb-10 md:mb-24"
-      >
-        <h2 class="text-4xl">
-          Proyectos
-          <sup class="text-base font-semibold text-brand-strong dark:text-brand"
-            >({projects.length})</sup
-          >
-        </h2>
-        <p class="md:max-w-[420px]">
-          Algunos de los proyectos en los que he liderado, participado y
-          construido independiente.
-        </p>
-      </header>
+    <ul
+      class="grid grid-cols-2 gap-x-6 border-t border-border px-5 pb-2 md:grid-cols-4 lg:max-[1408px]:grid-cols-2 md:px-10 lg:pr-10 xl:pl-[max(4rem,calc((100vw-1440px)/2+4rem))]"
+    >
       {
-        projects.map((project, index) => (
-          <Project project={project} index={index + 1} />
+        libraries.map((library) => (
+          <li>
+            <a
+              href={`/project/${library.slug}/`}
+              class="block py-4 transition-colors hover:text-brand-strong dark:hover:text-brand"
+            >
+              <span class="block text-lg font-medium" style="font-family: var(--font-display)">
+                {library.data.title}
+              </span>
+              <span class="mt-1 block text-sm text-muted-foreground">
+                {library.data.tagline ?? library.data.description}
+              </span>
+            </a>
+          </li>
         ))
       }
-    </section>
+    </ul>
+  </section>
 
-    <section class="container py-20 md:py-28">
-      <header
-        class="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-16 mb-10 md:mb-16"
-      >
-        <h2 class="text-4xl">
-          Herramientas
-          <sup class="text-base font-semibold text-brand-strong dark:text-brand"
-            >({libraries.length})</sup
+  <section id="herramientas" class={sectionGrid}>
+    <header class={sectionHeader}>
+      <h2 class="text-4xl md:text-5xl font-bold">Herramientas</h2>
+      <p class="mt-4 text-muted-foreground">
+        Software de código abierto que construyo y mantengo. Los paquetes viven
+        dentro de otros proyectos; Dockfly se instala en tu propio servidor.
+      </p>
+    </header>
+    <div>
+      {
+        libraries.map((project, index) => (
+          <OpenSource project={project} featured={index === 0} />
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="proyectos" class={sectionGrid}>
+    <header class={sectionHeader}>
+      <h2 class="text-4xl md:text-5xl font-bold">Proyectos</h2>
+      <p class="mt-4 text-muted-foreground">
+        Algunos de los proyectos que he liderado, en los que he participado o
+        que he construido de forma independiente.
+      </p>
+    </header>
+    <div class="grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-2">
+      {
+        projects.map((project, index) => (
+          <a
+            href={`/project/${project.slug}/`}
+            class:list={["group block", index % 2 === 1 && "md:mt-16"]}
           >
-        </h2>
-        <p class="md:max-w-[420px]">
-          Librerías de código abierto que mantengo y uso a diario: no tienen
-          interfaz propia, viven dentro de otros proyectos.
-        </p>
-      </header>
-      <div>
-        {libraries.map((project) => <OpenSource project={project} />)}
-      </div>
-    </section>
+            <span class="block overflow-hidden rounded-2xl ring-1 ring-border transition-shadow group-hover:ring-2 group-hover:ring-brand">
+              <Image
+                src={project.data.heroImage || ""}
+                width={800}
+                height={800}
+                alt=""
+                class="aspect-square w-full object-cover object-top transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.02]"
+              />
+            </span>
+            <span
+              class="mt-3 block text-xl font-medium transition-colors group-hover:text-brand-strong dark:group-hover:text-brand"
+              style="font-family: var(--font-display)"
+            >
+              {project.data.title}
+            </span>
+            <span class="mt-1 block text-sm text-muted-foreground">
+              {project.data.description}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
 
-    <section class="container py-20 md:py-28">
-      <header class="mb-10 md:mb-24">
-        <h2 class="text-4xl md:text-5xl max-w-[640px]">Te cuento sobre mí</h2>
-        <p class="text-muted-foreground mt-4">
-          Un breve resumen sobre mi vida profesional.
+  <section id="experiencia" class={sectionGrid}>
+    <header class={sectionHeader}>
+      <h2 class="text-4xl md:text-5xl font-bold">Experiencia</h2>
+      <p class="mt-4 text-muted-foreground">
+        Empresas donde me he desempeñado y aportado en distintos proyectos como
+        desarrollador web.
+      </p>
+    </header>
+    <div>
+      <TimelineItem
+        date="Oct. 2022 – actualidad"
+        title="Desarrollador Full Stack (PHP, MySQL, JavaScript, Next.js, PostgreSQL, Laravel)"
+        company="apros.global"
+        companyLink="https://apros.global"
+      >
+        <p>
+          Implementé una plantilla para mejorar la experiencia de desarrollo y
+          el rendimiento de los sitios web, evitando el uso excesivo de plugins
+          de WordPress que invaden con gigantescos archivos.
         </p>
-      </header>
+      </TimelineItem>
+      <TimelineItem
+        date="Ene. 2022"
+        title="Desarrollador Full Stack (Next.js, MongoDB)"
+        company="Clínica San Carlos"
+      >
+        <p>
+          Participé en el desarrollo de un software interno de la empresa para
+          la gestión de historias y citas médicas.
+        </p>
+      </TimelineItem>
+      <TimelineItem
+        date="Feb. 2021"
+        title="Desarrollador Full Stack (LAMP)"
+        company="EEGSAC"
+      >
+        <p>
+          Tuve la oportunidad de mejorar una herramienta interna de la empresa
+          que se usa para generar certificados; implementé diferentes
+          funcionalidades como búsqueda, filtrado y asignación mediante códigos
+          QR.
+        </p>
+      </TimelineItem>
+    </div>
+  </section>
 
-      <div class="flex flex-col md:flex-row items-center gap-10">
-        <div
-          class="[&_p]:mb-4 [&_strong]:text-brand-strong dark:[&_strong]:text-brand [&_a]:text-brand-strong dark:[&_a]:text-brand flex-1"
+  <section id="sobre-mi" class={sectionGrid}>
+    <header class={sectionHeader}>
+      <h2 class="text-4xl md:text-5xl font-bold">Te cuento sobre mí</h2>
+    </header>
+    <div
+      class="max-w-[65ch] text-lg [&_p]:mb-5 [&_strong]:font-semibold [&_a]:text-brand-strong dark:[&_a]:text-brand"
+    >
+      <p>
+        Mi nombre completo es <strong>Oswaldo Roberto Huillca Huamani</strong>,
+        pero suelen llamarme <strong>Oswa</strong> para que no sea muy largo.
+        Llevo más de 4 años trabajando profesionalmente en desarrollo web.
+      </p>
+      <p>
+        Como desarrollador web he participado en diferentes retos, algunos
+        sencillos, complejos y otros con posibilidad de mejora. Es así que en mi
+        última empresa he desarrollado 2 herramientas que nos ayudan a mejorar
+        el desarrollo, reduciendo el tiempo:
+        <a
+          href="https://github.com/oswaldohuillca/unocss-preset-calc"
+          target="_blank"
+          rel="noopener"
+          class="underline"
         >
-          <p>
-            Mi nombre completo es <strong
-              >Oswaldo Roberto Huillca Huamani</strong
-            >
-            pero suelen llamarme <strong>Oswa</strong> para que no sea muy largo.
-            No hace mucho estoy en el mundo de la programación, profesionalmente
-            empecé hace 4 años hasta la fecha.
-          </p>
+          UnoCSS preset calc<span class="sr-only"> (abre en otra pestaña)</span></a>, que nos permite crear interfaces idénticas al diseño UI de
+        <i>Figma</i> u otras herramientas de diseño UI, y
+        <a
+          href="https://github.com/oswaldohuillca/wp-dev-kit-started"
+          target="_blank"
+          rel="noopener"
+          class="underline"
+        >
+          WP Started Dev Kit<span class="sr-only"> (abre en otra pestaña)</span></a>, que nos ayuda a crear plantillas de <i>WordPress</i> rápidamente,
+        con un alto grado de personalización, usando herramientas como ACF.
+      </p>
+      <p>
+        Como reto personal profesional, espero mejorar constantemente y aprender
+        nuevas tecnologías para, más adelante, crear herramientas que ayuden a
+        los usuarios a tener una vida menos compleja.
+      </p>
+    </div>
+  </section>
 
-          <p>
-            Como desarrollador Web he participado en diferentes retos, algunos
-            sencillos, complejos y otros con posibilidad de mejora. Es así que en
-            mi última empresa he desarrollado 2 herramientas que nos ayudan a
-            mejorar el desarrollo, reduciendo el tiempo:
-            <a
-              href="https://github.com/oswaldohuillca/unocss-preset-calc"
-              target="_blank"
-              class="underline"
-            >
-              UnoCSS preset calc
-            </a> el cual nos permite crear interfaces idénticas al diseño UI de
-            <i>Figma</i> u otras herramientas de diseño UI.
-            <a
-              href="https://github.com/oswaldohuillca/wp-dev-kit-started"
-              target="_blank"
-              class="underline"
-            >
-              WP Started Dev Kit
-            </a> Nos ayuda a crear plantillas <i>Wordpress</i> rápidamente con alto
-            grado de customización utilizando herramientas como AFC.
-          </p>
-
-          <p>
-            Como reto personal profesional, espero mejorar constantemente y
-            aprender nuevas tecnologías para, más adelante, crear herramientas
-            que ayuden a los usuarios a tener una vida menos compleja.
-          </p>
-        </div>
-        <figure class="grow-0 md:max-w-[30%]">
-          <Image
-            src="/images/oswaldo-huillca.webp"
-            width={600}
-            height={600}
-            alt="Oswaldo Roberto Huillca Huamani"
-            class="min-h-10 rounded-2xl ring-1 ring-border"
-          />
-        </figure>
-      </div>
-    </section>
-
-    <Blog />
-  </main>
+  <Blog />
 </MainLayout>

@@ -1,160 +1,80 @@
 ---
 import { PAGE_TITLE } from "../consts";
-// const site = "https://www.figma.com/community/file/961427082834428618";
+
+const sections = [
+	{ href: "/#herramientas", label: "Herramientas" },
+	{ href: "/#proyectos", label: "Proyectos" },
+	{ href: "/#experiencia", label: "Experiencia" },
+	{ href: "/#sobre-mi", label: "Sobre mí" },
+];
+const navLink =
+	"inline-flex h-11 items-center rounded-md px-2 text-sm hover:text-brand-strong dark:hover:text-brand transition-colors";
+const iconButton =
+	"flex size-11 items-center justify-center rounded-lg text-xl hover:text-brand-strong dark:hover:text-brand transition-colors";
 ---
 
 <header
-	class="fixed w-full bg-gradient-to-b from-primary-foreground to-transparent from-40% to-100% z-50"
+	class="fixed top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur [@media(max-height:500px)]:static"
 >
-	<nav class="w-full">
-		<div class="container flex justify-between items-center py-6">
+	<nav class="w-full" aria-label="Principal">
+		<div class="container flex items-center justify-between gap-2 py-3">
 			<a
 				href="/"
-				class="text-2xl font-bold tracking-tight"
+				class="text-2xl font-bold tracking-tight whitespace-nowrap"
 				style="font-family: var(--font-display)">{PAGE_TITLE}</a
 			>
-			<div class="flex items-center gap-4 font-semibold">
+			<div class="flex items-center font-semibold">
+				{
+					sections.map(({ href, label }) => (
+						<a href={href} class:list={[navLink, "max-md:hidden"]}>
+							{label}
+						</a>
+					))
+				}
+				<a href="#contacto" class={navLink}>Contacto</a>
 				<a
-					href="https://github.com/oswaldohuillca/oswa.dev"
+					href="https://github.com/oswaldohuillca"
 					target="_blank"
 					rel="nofollow noopener"
-					title="https://github.com/oswaldohuillca/oswa.dev"
-					class="mx-auto flex justify-center items-center text-xl font-semibold rounded-lg border border-transparent"
+					aria-label="GitHub de Oswaldo (abre en otra pestaña)"
+					class={iconButton}
 				>
-					<span class="icon-[ant-design--github-outlined]"></span>
+					<span class="icon-[iconoir--github]"></span>
 				</a>
-				<div>
-					<button
-						type="button"
-						class="hs-dark-mode-active:hidden hs-dark-mode group flex items-center text-xl hover:text-brand-strong font-medium text-muted-foreground dark:hover:text-brand"
-						data-hs-theme-click-value="dark"
-						aria-label="Dark Mode"
-					>
-						<span class="icon-[solar--moon-bold-duotone]"></span>
-					</button>
-					<button
-						type="button"
-						class="hs-dark-mode-active:flex hidden hs-dark-mode group text-xl items-center font-medium"
-						data-hs-theme-click-value="light"
-						aria-label="Light Mode"
-					>
-						<span class="icon-[ph--sun-duotone]"></span>
-					</button>
-				</div>
+				<button
+					type="button"
+					data-theme-toggle
+					aria-pressed="false"
+					aria-label="Tema oscuro"
+					class:list={[iconButton, "text-muted-foreground"]}
+				>
+					<span class="icon-[iconoir--half-moon] dark:hidden"></span>
+					<span class="hidden dark:block">
+						<span class="icon-[iconoir--sun-light] block"></span>
+					</span>
+				</button>
 			</div>
 		</div>
 	</nav>
 </header>
 
 <script>
-	type Theme = "default" | "light" | "dark" | "auto";
-	const HSThemeAppearance = {
-		init() {
-			const defaultTheme: Theme = "default";
-			let theme: Theme =
-				(localStorage.getItem("hs_theme") as Theme) || defaultTheme;
+	const root = document.documentElement;
+	const toggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]")!;
+	const sync = () =>
+		toggle.setAttribute("aria-pressed", String(root.classList.contains("dark")));
+	sync();
 
-			if (document.querySelector("html")?.classList.contains("dark")) return;
-			this.setAppearance(theme);
-		},
-		_resetStylesOnLoad() {
-			const $resetStyles = document.createElement("style");
-			$resetStyles.innerText = `*{transition: unset !important;}`;
-			$resetStyles.setAttribute("data-hs-appearance-onload-styles", "");
-			document.head.appendChild($resetStyles);
-			return $resetStyles;
-		},
-		setAppearance(
-			theme: Theme,
-			saveInStore = true,
-			dispatchEvent: boolean | undefined | HTMLInputElement = true,
-		) {
-			const $resetStylesEl = this._resetStylesOnLoad();
+	toggle.addEventListener("click", () => {
+		const dark = root.classList.toggle("dark");
+		sync();
+		localStorage.setItem("hs_theme", dark ? "dark" : "light");
+	});
 
-			if (saveInStore) {
-				localStorage.setItem("hs_theme", theme);
-			}
-
-			if (theme === "auto") {
-				theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-					? "dark"
-					: "default";
-			}
-
-			document.querySelector("html")?.classList.remove("dark");
-			document.querySelector("html")?.classList.remove("default");
-			document.querySelector("html")?.classList.remove("auto");
-
-			document
-				?.querySelector("html")
-				?.classList.add(this.getOriginalAppearance());
-
-			setTimeout(() => {
-				$resetStylesEl.remove();
-			});
-
-			if (dispatchEvent) {
-				window.dispatchEvent(
-					new CustomEvent("on-hs-appearance-change", { detail: theme }),
-				);
-			}
-		},
-		getAppearance() {
-			let theme = this.getOriginalAppearance();
-			if (theme === "auto") {
-				theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-					? "dark"
-					: "default";
-			}
-			return theme;
-		},
-		getOriginalAppearance() {
-			const defaultTheme = "default";
-			return localStorage.getItem("hs_theme") || defaultTheme;
-		},
-	};
-	HSThemeAppearance.init();
-
-	window
-		.matchMedia("(prefers-color-scheme: dark)")
-		.addEventListener("change", (e) => {
-			if (HSThemeAppearance.getOriginalAppearance() === "auto") {
-				HSThemeAppearance.setAppearance("auto", false);
-			}
-		});
-
-	window.addEventListener("load", () => {
-		const $clickableThemes = document.querySelectorAll(
-			"[data-hs-theme-click-value]",
-		);
-		const $switchableThemes = document.querySelectorAll<HTMLInputElement>(
-			"[data-hs-theme-switch]",
-		);
-
-		$clickableThemes.forEach(($item) => {
-			$item.addEventListener("click", () =>
-				HSThemeAppearance.setAppearance(
-					($item.getAttribute("data-hs-theme-click-value") as Theme) || "light",
-					true,
-					$item as HTMLInputElement,
-				),
-			);
-		});
-
-		$switchableThemes.forEach(($item) => {
-			$item.addEventListener("change", (e) => {
-				const target = e.target as EventTarget & { checked: boolean };
-				HSThemeAppearance.setAppearance(target.checked ? "dark" : "default");
-			});
-
-			$item.checked = HSThemeAppearance.getAppearance() === "dark";
-		});
-
-		window.addEventListener("on-hs-appearance-change", (e) => {
-			$switchableThemes.forEach(($item) => {
-				//@ts-ignore
-				$item.checked = e.detail === "dark";
-			});
-		});
+	matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+		const saved = localStorage.getItem("hs_theme");
+		if (saved === "dark" || saved === "light") return;
+		root.classList.toggle("dark", e.matches);
+		sync();
 	});
 </script>

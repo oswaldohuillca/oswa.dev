@@ -1,5 +1,5 @@
 ---
-import { fDate } from "@libs/date";
+import FormattedDate from "../FormattedDate.astro";
 
 interface Post {
   title: string;
@@ -44,9 +44,12 @@ const posts: Post[] = devToPost.map((post: PostsResponse) => ({
 ---
 
 {posts.length > 0 && (
-<section class="container py-24 md:py-32">
-  <header class="max-w-[620px] mb-14">
-    <h2 class="text-4xl md:text-5xl">Escribo</h2>
+<section
+  id="articulos"
+  class="container grid grid-cols-1 gap-x-16 gap-y-10 py-14 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
+>
+  <header class="lg:sticky lg:top-24 lg:self-start">
+    <h2 class="text-4xl md:text-5xl font-bold">Artículos</h2>
     <p class="text-muted-foreground mt-4">
       Artículos que publico en dev.to sobre desarrollo web. El detalle abre en
       dev.to.
@@ -54,23 +57,21 @@ const posts: Post[] = devToPost.map((post: PostsResponse) => ({
   </header>
   <ul>
     {
-      posts.map((post, index) => (
+      posts.map((post) => (
         <li>
           <a
             href={post.url}
             target="_blank"
             rel="noopener"
-            class="group grid md:grid-cols-[3.5rem_1fr_auto] gap-x-8 gap-y-1 items-baseline py-6 border-t border-border transition-colors hover:border-brand"
+            class="group grid md:grid-cols-[1fr_auto] gap-x-8 gap-y-1 items-baseline py-6 border-t border-border transition-colors hover:border-brand"
           >
-            <span class="text-sm tabular-nums text-muted-foreground">
-              {String(index + 1).padStart(2, "0")}
-            </span>
             <span class="text-xl md:text-2xl group-hover:text-brand-strong dark:group-hover:text-brand transition-colors">
               {post.title}
             </span>
             <span class="flex items-center gap-2 text-sm tabular-nums text-muted-foreground">
-              <time datetime={post.publishedAt}>{fDate(post.publishedAt)}</time>
-              <span class="icon-[iconoir--arrow-up-right] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <FormattedDate date={new Date(post.publishedAt)} />
+              <span class="icon-[iconoir--arrow-up-right]" aria-hidden="true" />
+              <span class="sr-only">(abre en otra pestaña)</span>
             </span>
           </a>
         </li>

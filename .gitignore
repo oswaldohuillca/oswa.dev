@@ -23,3 +23,6 @@ bun.lock
 .DS_Store
 .claude
 .hallmark
+
+# Impeccable: archivos locales de las sesiones de diseño
+.impeccable/

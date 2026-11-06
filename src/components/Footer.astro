@@ -1,54 +1,49 @@
 ---
+import CopyButton from "./CopyButton.astro";
+import Link from "./Link.astro";
+import { CONTACT_EMAIL } from "../consts";
+
 const today = new Date();
 const year = today.getFullYear();
 ---
 
-<footer class="border-t border-border mt-20">
+<footer id="contacto" class="border-t border-border mt-20">
 	<div
 		class="container py-16 flex flex-col md:flex-row md:items-end justify-between gap-10"
 	>
-		<div class="max-w-[420px]">
-			<p
-				class="text-2xl font-bold"
-				style="font-family: var(--font-display)"
-			>
-				Oswa dev
-			</p>
-			<p class="text-muted-foreground mt-3">
-				¿Tienes un proyecto en mente o quieres saludar? Escríbeme.
-			</p>
-			<a
-				href="mailto:oswaldohuillca@gmail.com"
-				class="inline-block mt-4 font-semibold text-brand-strong dark:text-brand hover:underline"
-			>
-				oswaldohuillca@gmail.com
-			</a>
+		<div class="max-w-[720px]">
+			<h2 class="text-4xl md:text-6xl font-bold text-balance">
+				¿Tienes un proyecto en mente?
+			</h2>
+			<div class="mt-4 flex flex-wrap items-center gap-x-1">
+				<a
+					href={`mailto:${CONTACT_EMAIL}`}
+					class="inline-flex min-h-11 items-center text-xl md:text-2xl font-semibold break-all text-brand-strong dark:text-brand hover:underline"
+				>
+					{CONTACT_EMAIL}
+				</a>
+				<CopyButton text={CONTACT_EMAIL} label="Copiar email" />
+			</div>
 		</div>
 
-		<div class="flex items-center gap-3">
-			<a
+		<div class="flex flex-wrap items-center gap-2 md:shrink-0 md:flex-nowrap">
+			<Link
 				href="https://github.com/oswaldohuillca"
+				size="icon"
 				target="_blank"
 				rel="nofollow noopener"
-				title="GitHub"
-				aria-label="GitHub"
-				class="flex justify-center items-center size-[46px] text-2xl rounded-lg border border-border hover:border-brand hover:text-brand-strong dark:hover:text-brand transition-colors"
+				aria-label="GitHub de Oswaldo (abre en otra pestaña)"
 			>
-				<span class="icon-[ant-design--github-outlined]"></span>
-			</a>
-			<a
-				href="/CV-Oswaldo.pdf"
-				download="CV-Oswa.pdf"
-				title="Descargar CV"
-				aria-label="Descargar CV"
-				class="flex justify-center items-center size-[46px] text-2xl rounded-lg border border-border hover:border-brand hover:text-brand-strong dark:hover:text-brand transition-colors"
-			>
-				<span class="icon-[iconamoon--cloud-download]"></span>
-			</a>
+				<span class="icon-[iconoir--github]"></span>
+			</Link>
+			<Link href="/CV-Oswaldo.pdf" download="CV-Oswa.pdf">
+				Descargar CV (PDF, 528 KB)
+				<span class="icon-[iconoir--cloud-download]" aria-hidden="true"></span>
+			</Link>
 		</div>
 	</div>
 
 	<div class="container pb-10 text-sm text-muted-foreground">
-		© {year} Oswaldo Huillca. Hecho con Astro.
+		© {year} Oswaldo Huillca, Oswa dev. Hecho con Astro.
 	</div>
 </footer>

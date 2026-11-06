@@ -1,0 +1,18 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Link from "../components/Link.astro";
+---
+
+<MainLayout title="Página no encontrada | Oswaldo Huillca" noindex>
+  <section class="container min-h-[70vh] flex flex-col justify-center pt-28 pb-12">
+    <h1 class="text-4xl md:text-5xl font-bold">Esta página no existe</h1>
+    <p class="mt-4 max-w-[48ch] text-muted-foreground">
+      Puede que el enlace esté mal escrito o que la página se haya movido.
+    </p>
+    <div class="mt-8 flex flex-wrap items-center gap-2">
+      <Link href="/" variant="primary">Ir al inicio</Link>
+      <Link href="/#proyectos">Ver proyectos</Link>
+      <Link href="#contacto">Contacto</Link>
+    </div>
+  </section>
+</MainLayout>

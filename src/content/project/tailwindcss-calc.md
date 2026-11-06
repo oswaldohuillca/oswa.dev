@@ -1,6 +1,7 @@
 ---
 title: 'Tailwind CSS Calc'
 description: 'Plugin de Tailwind CSS v4, escrito 100% en CSS, que convierte los píxeles del mockup en utilidades que escalan con el viewport usando calc() y clamp().'
+tagline: 'Utilidades que escalan con el viewport'
 createAt: 'December 21 2025'
 kind: 'library'
 website: 'https://tailwindcss-calc.pages.dev'
